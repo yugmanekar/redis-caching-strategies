@@ -285,3 +285,4 @@ export default function VideoHubModal({ isOpen, onClose, initialVideoId = 'intro
     </AnimatePresence>
   );
 }
+

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Database, Zap, BookOpen, Clock, ChevronDown, Video } from 'lucide-react';
+import { Database, Zap, BookOpen, Clock, ChevronDown, Video, ArrowRight, ShieldCheck } from 'lucide-react';
 
 const styles = {
   container: {
@@ -8,116 +8,137 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '120px 24px 80px',
+    padding: '130px 24px 80px',
     position: 'relative',
     overflow: 'hidden',
   },
-  bgGlow: {
+  glowSpot1: {
     position: 'absolute',
-    width: '600px',
-    height: '600px',
+    width: '650px',
+    height: '650px',
     borderRadius: '50%',
-    filter: 'blur(150px)',
-    opacity: 0.15,
+    background: 'radial-gradient(circle, rgba(225, 29, 72, 0.12) 0%, transparent 70%)',
+    top: '-15%',
+    left: '50%',
+    transform: 'translateX(-50%)',
     pointerEvents: 'none',
   },
-  badge: {
+  glowSpot2: {
+    position: 'absolute',
+    width: '500px',
+    height: '500px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%)',
+    bottom: '-10%',
+    right: '5%',
+    pointerEvents: 'none',
+  },
+  pill: {
     display: 'inline-flex',
     alignItems: 'center',
     gap: '8px',
-    padding: '8px 20px',
-    borderRadius: '50px',
-    background: 'rgba(220, 56, 45, 0.1)',
-    border: '1px solid rgba(220, 56, 45, 0.3)',
-    color: '#FF6B6B',
-    fontSize: '14px',
-    fontWeight: 600,
-    marginBottom: '24px',
+    padding: '6px 16px',
+    borderRadius: '100px',
+    background: 'rgba(255, 255, 255, 0.04)',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    color: 'var(--text-secondary)',
+    fontSize: '13px',
+    fontWeight: 500,
+    marginBottom: '28px',
+    backdropFilter: 'blur(10px)',
+  },
+  pillDot: {
+    width: '6px',
+    height: '6px',
+    borderRadius: '50%',
+    background: '#E11D48',
+    boxShadow: '0 0 8px #E11D48',
   },
   title: {
-    fontSize: 'clamp(36px, 6vw, 72px)',
-    fontWeight: 900,
-    lineHeight: 1.1,
+    fontSize: 'clamp(40px, 6.5vw, 76px)',
+    fontWeight: 800,
+    lineHeight: 1.08,
     textAlign: 'center',
     marginBottom: '24px',
-    letterSpacing: '-0.02em',
+    letterSpacing: '-0.035em',
   },
   subtitle: {
-    fontSize: 'clamp(16px, 2vw, 20px)',
+    fontSize: 'clamp(16px, 1.8vw, 19px)',
     color: 'var(--text-secondary)',
     textAlign: 'center',
-    maxWidth: '700px',
-    lineHeight: 1.7,
-    marginBottom: '40px',
+    maxWidth: '680px',
+    lineHeight: 1.65,
+    marginBottom: '44px',
+    fontWeight: 400,
   },
-  stats: {
+  statsRow: {
     display: 'flex',
-    gap: '20px',
+    gap: '12px',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    marginBottom: '40px',
+    marginBottom: '48px',
   },
-  stat: {
+  statBadge: {
     display: 'flex',
     alignItems: 'center',
-    gap: '10px',
-    padding: '12px 20px',
-    borderRadius: '12px',
-    background: 'var(--bg-card)',
+    gap: '9px',
+    padding: '8px 16px',
+    borderRadius: '10px',
+    background: 'rgba(20, 23, 33, 0.8)',
     border: '1px solid var(--border-color)',
-  },
-  statIcon: {
-    color: '#DC382D',
-  },
-  statText: {
-    fontSize: '14px',
+    backdropFilter: 'blur(8px)',
+    fontSize: '13px',
     fontWeight: 500,
+    color: 'var(--text-secondary)',
   },
   btnGroup: {
     display: 'flex',
-    gap: '16px',
+    gap: '14px',
     alignItems: 'center',
     justifyContent: 'center',
     flexWrap: 'wrap',
   },
-  startBtn: {
-    padding: '16px 36px',
-    borderRadius: '12px',
-    background: 'linear-gradient(135deg, #DC382D, #c0392b)',
-    color: 'white',
-    fontSize: '17px',
-    fontWeight: 700,
-    border: 'none',
+  primaryBtn: {
+    padding: '14px 32px',
+    borderRadius: '10px',
+    background: 'linear-gradient(180deg, #E11D48 0%, #BE123C 100%)',
+    color: '#FFF',
+    fontSize: '15px',
+    fontWeight: 600,
+    border: '1px solid rgba(255, 255, 255, 0.2)',
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
-    gap: '10px',
-    transition: 'all 0.3s',
-    boxShadow: '0 4px 15px rgba(220, 56, 45, 0.4)',
+    gap: '8px',
+    boxShadow: '0 4px 20px -2px rgba(225, 29, 72, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25)',
+    transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
   },
-  videoBtn: {
-    padding: '16px 32px',
-    borderRadius: '12px',
-    background: 'rgba(255, 255, 255, 0.05)',
+  secondaryBtn: {
+    padding: '14px 26px',
+    borderRadius: '10px',
+    background: 'rgba(20, 23, 33, 0.75)',
     border: '1px solid var(--border-color)',
     color: 'var(--text-primary)',
-    fontSize: '16px',
-    fontWeight: 600,
+    fontSize: '15px',
+    fontWeight: 500,
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
-    gap: '10px',
-    transition: 'all 0.3s',
+    gap: '8px',
+    backdropFilter: 'blur(10px)',
+    transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
   },
-  scrollIndicator: {
+  scrollDown: {
     position: 'absolute',
     bottom: '24px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: '8px',
-    color: 'var(--text-muted)',
-    fontSize: '13px',
+    gap: '6px',
+    color: 'var(--text-dim)',
+    fontSize: '12px',
+    letterSpacing: '0.04em',
+    textTransform: 'uppercase',
   },
 };
 
@@ -129,90 +150,87 @@ export default function HeroSection({ onComplete, onOpenVideo }) {
 
   return (
     <div style={styles.container}>
-      {/* Background glows */}
-      <div style={{ ...styles.bgGlow, background: '#DC382D', top: '-200px', right: '-200px' }} />
-      <div style={{ ...styles.bgGlow, background: '#336791', bottom: '-200px', left: '-200px' }} />
+      <div style={styles.glowSpot1} />
+      <div style={styles.glowSpot2} />
 
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}
       >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2 }}
-          style={styles.badge}
-        >
-          <Zap size={16} />
-          Interactive Learning Experience • 45 Minutes
-        </motion.div>
+        <div style={styles.pill}>
+          <span style={styles.pillDot} />
+          <span>Kalvium Skilling Course • 45 Min Interactive Artifact</span>
+        </div>
 
         <h1 style={styles.title}>
-          <span style={{ color: 'var(--text-primary)' }}>Redis </span>
+          Mastering{' '}
           <span style={{
-            background: 'linear-gradient(135deg, #DC382D, #FF6B6B)',
+            background: 'linear-gradient(135deg, #FFF 20%, #FB7185 80%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
           }}>
-            Caching
+            Redis Caching
           </span>
           <br />
-          <span style={{ color: 'var(--text-primary)' }}>Strategies</span>
+          <span style={{ color: 'var(--text-secondary)' }}>at Scale</span>
         </h1>
 
         <p style={styles.subtitle}>
-          Master <strong>Cache-Aside</strong>, <strong>Write-Through</strong>, and{' '}
-          <strong>Cache Invalidation</strong> patterns through live animations, interactive
-          simulators, embedded video walkthroughs, and hands-on coding labs.
+          A guided, hands-on architectural journey through <strong>Cache-Aside</strong>, <strong>Write-Through</strong>,
+          and <strong>Cache Invalidation</strong>. Explore interactive state machines, inspect live packet latencies, and master production distributed systems.
         </p>
 
-        <div style={styles.stats}>
-          <div style={styles.stat}>
-            <BookOpen size={18} style={styles.statIcon} />
-            <span style={styles.statText}>9 Interactive Modules</span>
+        <div style={styles.statsRow}>
+          <div style={styles.statBadge}>
+            <BookOpen size={15} color="#FB7185" />
+            <span>8 Modular Chapters</span>
           </div>
-          <div style={styles.stat}>
-            <Clock size={18} style={styles.statIcon} />
-            <span style={styles.statText}>~45 min Duration</span>
+          <div style={styles.statBadge}>
+            <Clock size={15} color="#F59E0B" />
+            <span>45 Minutes Pace</span>
           </div>
-          <div style={styles.stat}>
-            <Video size={18} style={styles.statIcon} />
-            <span style={styles.statText}>Embedded Video Hub</span>
+          <div style={styles.statBadge}>
+            <Zap size={15} color="#10B981" />
+            <span>3 Live Simulators + Lab</span>
+          </div>
+          <div style={styles.statBadge}>
+            <Video size={15} color="#6366F1" />
+            <span>Video Hub Included</span>
           </div>
         </div>
 
         <div style={styles.btnGroup}>
           <motion.button
-            style={styles.startBtn}
-            whileHover={{ scale: 1.05, boxShadow: '0 6px 25px rgba(220, 56, 45, 0.5)' }}
-            whileTap={{ scale: 0.95 }}
+            style={styles.primaryBtn}
+            whileHover={{ scale: 1.02, y: -1 }}
+            whileTap={{ scale: 0.98 }}
             onClick={scrollToNext}
           >
-            Start Course
-            <ChevronDown size={20} />
+            <span>Start Learning</span>
+            <ArrowRight size={16} />
           </motion.button>
 
           <motion.button
-            style={styles.videoBtn}
-            whileHover={{ scale: 1.03, background: 'rgba(255, 255, 255, 0.1)' }}
-            whileTap={{ scale: 0.97 }}
+            style={styles.secondaryBtn}
+            whileHover={{ scale: 1.02, y: -1, borderColor: 'var(--border-color-hover)' }}
+            whileTap={{ scale: 0.98 }}
             onClick={onOpenVideo}
           >
-            <Video size={18} color="#FF6B6B" />
-            Watch Video Walkthrough
+            <Video size={16} color="#FB7185" />
+            <span>Watch Video Primer</span>
           </motion.button>
         </div>
       </motion.div>
 
       <motion.div
-        style={styles.scrollIndicator}
-        animate={{ y: [0, 8, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
+        style={styles.scrollDown}
+        animate={{ y: [0, 6, 0] }}
+        transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
       >
-        <span>Scroll to explore modules</span>
-        <ChevronDown size={18} />
+        <span>Explore Curriculum</span>
+        <ChevronDown size={14} />
       </motion.div>
     </div>
   );

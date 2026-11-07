@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Database, Menu, X, Video } from 'lucide-react';
+import { Database, Menu, X, Video, Sparkles } from 'lucide-react';
 
 const styles = {
   nav: {
@@ -9,19 +9,19 @@ const styles = {
     left: 0,
     right: 0,
     zIndex: 1000,
-    background: 'rgba(15, 15, 26, 0.85)',
+    background: 'rgba(9, 10, 15, 0.8)',
     backdropFilter: 'blur(20px)',
     borderBottom: '1px solid var(--border-color)',
-    transition: 'transform 0.3s ease',
+    transition: 'all 0.3s ease',
   },
   container: {
     maxWidth: '1280px',
     margin: '0 auto',
-    padding: '0 24px',
+    padding: '0 28px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: '60px',
+    height: '64px',
   },
   logo: {
     display: 'flex',
@@ -29,47 +29,57 @@ const styles = {
     gap: '10px',
     textDecoration: 'none',
     color: 'var(--text-primary)',
-    fontWeight: 700,
-    fontSize: '18px',
+    fontWeight: 800,
+    fontSize: '17px',
+    letterSpacing: '-0.02em',
   },
-  redisIcon: {
-    color: '#DC382D',
+  logoBadge: {
+    width: '32px',
+    height: '32px',
+    borderRadius: '8px',
+    background: 'linear-gradient(135deg, #E11D48, #BE123C)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#FFF',
+    boxShadow: '0 4px 12px rgba(225, 29, 72, 0.35)',
   },
   navLinks: {
     display: 'flex',
     alignItems: 'center',
-    gap: '4px',
+    gap: '6px',
     listStyle: 'none',
   },
   navLink: {
-    padding: '6px 10px',
+    padding: '6px 12px',
     borderRadius: '6px',
-    fontSize: '12.5px',
+    fontSize: '13px',
     fontWeight: 500,
     color: 'var(--text-secondary)',
     cursor: 'pointer',
-    transition: 'all 0.2s',
+    transition: 'all 0.15s ease',
     whiteSpace: 'nowrap',
     border: 'none',
     background: 'none',
   },
   navLinkActive: {
-    color: '#DC382D',
-    background: 'rgba(220, 56, 45, 0.1)',
+    color: 'var(--text-primary)',
+    background: 'rgba(255, 255, 255, 0.06)',
+    fontWeight: 600,
   },
   videoBtn: {
     display: 'flex',
     alignItems: 'center',
-    gap: '6px',
-    padding: '6px 14px',
+    gap: '7px',
+    padding: '7px 16px',
     borderRadius: '8px',
-    background: 'linear-gradient(135deg, #DC382D, #c0392b)',
-    color: 'white',
+    background: 'rgba(225, 29, 72, 0.12)',
+    border: '1px solid rgba(225, 29, 72, 0.35)',
+    color: '#FB7185',
     fontSize: '13px',
     fontWeight: 600,
-    border: 'none',
     cursor: 'pointer',
-    boxShadow: '0 2px 10px rgba(220, 56, 45, 0.3)',
+    transition: 'all 0.2s ease',
     marginLeft: '8px',
   },
   mobileMenuBtn: {
@@ -82,10 +92,10 @@ const styles = {
   },
   mobileMenu: {
     position: 'fixed',
-    top: '60px',
+    top: '64px',
     left: 0,
     right: 0,
-    background: 'rgba(15, 15, 26, 0.95)',
+    background: 'rgba(9, 10, 15, 0.98)',
     backdropFilter: 'blur(20px)',
     borderBottom: '1px solid var(--border-color)',
     padding: '16px',
@@ -126,12 +136,29 @@ export default function Navbar({ sections, activeSection, onOpenVideos }) {
     <>
       <nav style={{
         ...styles.nav,
-        boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.3)' : 'none',
+        boxShadow: scrolled ? '0 10px 30px rgba(0, 0, 0, 0.5)' : 'none',
+        borderBottomColor: scrolled ? 'var(--border-color-hover)' : 'var(--border-color)',
       }}>
         <div style={styles.container}>
           <a href="#hero" style={styles.logo} onClick={(e) => { e.preventDefault(); scrollTo('hero'); }}>
-            <Database size={22} style={styles.redisIcon} />
-            <span>Redis<span style={{ color: '#DC382D' }}>Cache</span></span>
+            <div style={styles.logoBadge}>
+              <Database size={17} />
+            </div>
+            <span>
+              Redis<span style={{ color: '#FB7185' }}>Flow</span>
+            </span>
+            <span style={{
+              fontSize: '10px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              padding: '2px 7px',
+              borderRadius: '4px',
+              background: 'rgba(255, 255, 255, 0.06)',
+              color: 'var(--text-muted)',
+              fontWeight: 600,
+            }}>
+              Interactive
+            </span>
           </a>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -144,6 +171,12 @@ export default function Navbar({ sections, activeSection, onOpenVideos }) {
                       ...(activeSection === id ? styles.navLinkActive : {}),
                     }}
                     onClick={() => scrollTo(id)}
+                    onMouseEnter={(e) => {
+                      if (activeSection !== id) e.currentTarget.style.color = 'var(--text-primary)';
+                    }}
+                    onMouseLeave={(e) => {
+                      if (activeSection !== id) e.currentTarget.style.color = 'var(--text-secondary)';
+                    }}
                   >
                     {label}
                   </button>
@@ -151,7 +184,18 @@ export default function Navbar({ sections, activeSection, onOpenVideos }) {
               ))}
             </ul>
 
-            <button style={styles.videoBtn} onClick={onOpenVideos}>
+            <button
+              style={styles.videoBtn}
+              onClick={onOpenVideos}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(225, 29, 72, 0.22)';
+                e.currentTarget.style.borderColor = 'rgba(225, 29, 72, 0.6)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(225, 29, 72, 0.12)';
+                e.currentTarget.style.borderColor = 'rgba(225, 29, 72, 0.35)';
+              }}
+            >
               <Video size={14} />
               <span>Video Hub</span>
             </button>
@@ -189,7 +233,7 @@ export default function Navbar({ sections, activeSection, onOpenVideos }) {
               key={id}
               style={{
                 ...styles.mobileLink,
-                ...(activeSection === id ? { color: '#DC382D', background: 'rgba(220,56,45,0.1)' } : {}),
+                ...(activeSection === id ? { color: '#FB7185', background: 'rgba(225,29,72,0.1)' } : {}),
               }}
               onClick={() => scrollTo(id)}
             >

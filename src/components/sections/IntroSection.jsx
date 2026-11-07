@@ -1,37 +1,39 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Zap, Server, Database, ArrowRight, AlertTriangle, CheckCircle, Video } from 'lucide-react';
+import { Zap, Database, ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
 import CodeBlock from '../ui/CodeBlock';
 import VideoButton from '../ui/VideoButton';
 
 const sectionStyle = {
-  padding: '100px 24px',
-  maxWidth: '1000px',
+  padding: '90px 24px',
+  maxWidth: '1040px',
   margin: '0 auto',
 };
 
 const headingStyle = {
-  fontSize: '14px',
+  fontSize: '12.5px',
   fontWeight: 700,
-  color: '#DC382D',
+  color: '#FB7185',
   textTransform: 'uppercase',
-  letterSpacing: '2px',
-  marginBottom: '12px',
+  letterSpacing: '1.5px',
+  marginBottom: '8px',
 };
 
 const titleStyle = {
-  fontSize: 'clamp(28px, 4vw, 42px)',
+  fontSize: 'clamp(28px, 3.8vw, 42px)',
   fontWeight: 800,
-  lineHeight: 1.2,
+  lineHeight: 1.15,
   marginBottom: '20px',
+  letterSpacing: '-0.025em',
 };
 
 const cardStyle = {
   background: 'var(--bg-card)',
   borderRadius: '16px',
   border: '1px solid var(--border-color)',
-  padding: '32px',
+  padding: '30px',
   marginBottom: '24px',
+  boxShadow: 'var(--shadow-card)',
 };
 
 export default function IntroSection({ onComplete, onOpenVideo }) {
@@ -50,202 +52,198 @@ export default function IntroSection({ onComplete, onOpenVideo }) {
     setDbTime(null);
     setCacheTime(null);
 
-    // Simulate cache hit (fast)
-    setTimeout(() => setCacheTime(Math.floor(Math.random() * 5 + 1)), 50);
-    // Simulate DB query (slow)
-    setTimeout(() => setDbTime(Math.floor(Math.random() * 200 + 100)), 800);
+    setTimeout(() => setCacheTime(Math.floor(Math.random() * 3 + 1)), 60);
+    setTimeout(() => setDbTime(Math.floor(Math.random() * 160 + 110)), 750);
   };
 
   return (
     <div ref={ref} style={sectionStyle}>
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '8px' }}>
-          <p style={headingStyle}>Chapter 1 • Fundamentals</p>
+          <p style={headingStyle}>Chapter 1 • Problem Foundation</p>
           <VideoButton onOpen={onOpenVideo} videoId="intro" label="Watch Intro Video (3m)" />
         </div>
 
         <h2 style={titleStyle}>
-          What is Caching & Why{' '}
-          <span style={{ color: '#DC382D' }}>Redis</span>?
+          The Latency Bottleneck &{' '}
+          <span style={{ color: '#FB7185' }}>Redis</span>
         </h2>
 
+        {/* Latency Comparison Card */}
         <div style={cardStyle}>
-          <h3 style={{ fontSize: '20px', marginBottom: '16px', fontWeight: 700 }}>
-            🧠 The Problem: Slow Database Queries
-          </h3>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.8 }}>
-            Every time a user visits a product page, your app queries the database. If 10,000 users
-            view the same product, that's <strong style={{ color: '#FF6B6B' }}>10,000 identical queries</strong> hitting
-            your database. This is slow, expensive, and unnecessary.
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+            <span style={{
+              padding: '6px 12px',
+              borderRadius: '6px',
+              background: 'rgba(245, 158, 11, 0.1)',
+              color: '#F59E0B',
+              fontSize: '12px',
+              fontWeight: 700,
+            }}>
+              BENCHMARK
+            </span>
+            <h3 style={{ fontSize: '18px', fontWeight: 700 }}>Disk I/O vs In-Memory RAM</h3>
+          </div>
+
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '24px', lineHeight: 1.7, fontSize: '15px' }}>
+            When 20,000 users concurrently fetch a hot e-commerce product or profile, hitting a relational database executes disk seek cycles, connection overhead, and complex query parsing every single time.
           </p>
 
-          {/* Interactive latency comparison */}
-          <div style={{
-            display: 'flex',
-            gap: '20px',
-            flexWrap: 'wrap',
-            marginBottom: '20px',
-          }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px', marginBottom: '20px' }}>
+            {/* DB Block */}
             <div style={{
-              flex: 1,
-              minWidth: '200px',
               padding: '24px',
               borderRadius: '12px',
-              background: 'rgba(51, 103, 145, 0.15)',
-              border: '1px solid rgba(51, 103, 145, 0.3)',
+              background: 'rgba(15, 17, 23, 0.9)',
+              border: '1px solid var(--border-color)',
               textAlign: 'center',
             }}>
-              <Database size={32} style={{ color: '#5B9BD5', marginBottom: '12px' }} />
-              <h4 style={{ color: '#5B9BD5', marginBottom: '8px' }}>Database Query</h4>
+              <Database size={28} color="#64748B" style={{ marginBottom: '10px' }} />
+              <h4 style={{ color: 'var(--text-secondary)', fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
+                PostgreSQL (SSD Disk / Network)
+              </h4>
               <div style={{
-                fontSize: '36px',
+                fontSize: '38px',
                 fontWeight: 800,
                 fontFamily: 'var(--font-mono)',
-                color: dbTime !== null ? '#FF6B6B' : 'var(--text-muted)',
+                color: dbTime !== null ? '#FB7185' : 'var(--text-dim)',
+                letterSpacing: '-0.02em',
               }}>
-                {dbTime !== null ? `${dbTime}ms` : '???'}
+                {dbTime !== null ? `${dbTime}ms` : '—'}
               </div>
-              <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '8px' }}>
-                Disk I/O + Network round trip
+              <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '6px' }}>
+                Query execution + Disk seek
               </p>
             </div>
 
+            {/* Redis Block */}
             <div style={{
-              flex: 1,
-              minWidth: '200px',
               padding: '24px',
               borderRadius: '12px',
-              background: 'rgba(220, 56, 45, 0.15)',
-              border: '1px solid rgba(220, 56, 45, 0.3)',
+              background: 'rgba(225, 29, 72, 0.05)',
+              border: '1px solid rgba(225, 29, 72, 0.25)',
               textAlign: 'center',
             }}>
-              <Zap size={32} style={{ color: '#FF6B6B', marginBottom: '12px' }} />
-              <h4 style={{ color: '#FF6B6B', marginBottom: '8px' }}>Redis Cache Hit</h4>
+              <Zap size={28} color="#FB7185" style={{ marginBottom: '10px' }} />
+              <h4 style={{ color: '#FB7185', fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
+                Redis In-Memory Lookup
+              </h4>
               <div style={{
-                fontSize: '36px',
+                fontSize: '38px',
                 fontWeight: 800,
                 fontFamily: 'var(--font-mono)',
-                color: cacheTime !== null ? '#48BB78' : 'var(--text-muted)',
+                color: cacheTime !== null ? '#10B981' : 'var(--text-dim)',
+                letterSpacing: '-0.02em',
               }}>
-                {cacheTime !== null ? `${cacheTime}ms` : '???'}
+                {cacheTime !== null ? `${cacheTime}ms` : '—'}
               </div>
-              <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '8px' }}>
-                In-memory lookup
+              <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '6px' }}>
+                O(1) Hash Table Lookup in RAM
               </p>
             </div>
           </div>
 
           <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
             onClick={simulateLatency}
             style={{
               width: '100%',
-              padding: '14px',
+              padding: '13px',
               borderRadius: '10px',
-              background: 'linear-gradient(135deg, #DC382D, #c0392b)',
+              background: 'linear-gradient(180deg, #E11D48 0%, #BE123C 100%)',
               color: 'white',
-              fontSize: '16px',
+              fontSize: '14px',
               fontWeight: 600,
               border: 'none',
               cursor: 'pointer',
+              boxShadow: '0 4px 15px -2px rgba(225, 29, 72, 0.4)',
             }}
           >
-            ⚡ Simulate Latency Comparison
+            ⚡ Run Live Latency Benchmark
           </motion.button>
 
           {showLatency && dbTime !== null && cacheTime !== null && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
               style={{
                 marginTop: '16px',
-                padding: '12px 16px',
+                padding: '12px 18px',
                 borderRadius: '8px',
-                background: 'rgba(72, 187, 120, 0.1)',
-                border: '1px solid rgba(72, 187, 120, 0.3)',
-                color: '#48BB78',
-                fontSize: '14px',
-                textAlign: 'center',
+                background: 'rgba(16, 185, 129, 0.1)',
+                border: '1px solid rgba(16, 185, 129, 0.25)',
+                color: '#10B981',
+                fontSize: '13.5px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
               }}
             >
-              🚀 Redis is <strong>{Math.round(dbTime / cacheTime)}x faster</strong> than a database query!
-            </motion.p>
+              <CheckCircle2 size={16} />
+              <span>
+                Redis responded in <strong>{cacheTime}ms</strong> — that is <strong>{Math.round(dbTime / cacheTime)}x faster</strong> than the PostgreSQL disk roundtrip!
+              </span>
+            </motion.div>
           )}
         </div>
 
-        {/* Why Redis */}
+        {/* Redis Architectural Highlights */}
         <div style={cardStyle}>
-          <h3 style={{ fontSize: '20px', marginBottom: '16px', fontWeight: 700 }}>
-            🔴 Why Redis?
+          <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '16px' }}>
+            Why Redis Dominates Web Infrastructure
           </h3>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.8 }}>
-            <strong style={{ color: 'var(--text-primary)' }}>Redis</strong> (Remote Dictionary Server) is an
-            open-source, in-memory data store. It stores data in RAM rather than on disk, making it
-            incredibly fast for caching.
-          </p>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '14px' }}>
             {[
-              { icon: '⚡', title: 'Sub-millisecond', desc: 'Read/write operations in under 1ms' },
-              { icon: '📦', title: 'Rich Data Types', desc: 'Strings, Hashes, Lists, Sets, Sorted Sets' },
-              { icon: '🔄', title: 'Built-in TTL', desc: 'Automatic key expiration for cache invalidation' },
-              { icon: '📡', title: 'Pub/Sub', desc: 'Built-in messaging for event-driven invalidation' },
-              { icon: '🏗️', title: 'Clustering', desc: 'Horizontal scaling across multiple nodes' },
-              { icon: '💾', title: 'Persistence', desc: 'Optional disk persistence (RDB/AOF)' },
-            ].map((feature, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.1 * i }}
+              { title: 'Sub-millisecond Ops', desc: 'Single-threaded event loop eliminates lock contention', tag: 'Fast' },
+              { title: 'Native Data Structures', desc: 'Hashes, Lists, Sets, and Sorted Sets (ZSET)', tag: 'Versatile' },
+              { title: 'Granular Key TTL', desc: 'Auto-expiration with millisecond precision', tag: 'Managed' },
+              { title: 'Pub/Sub Engine', desc: 'Broadcast instant cache invalidation alerts', tag: 'Realtime' },
+            ].map((item, idx) => (
+              <div
+                key={idx}
                 style={{
-                  padding: '20px',
-                  borderRadius: '12px',
+                  padding: '18px',
+                  borderRadius: '10px',
                   background: 'var(--bg-secondary)',
                   border: '1px solid var(--border-color)',
                 }}
               >
-                <span style={{ fontSize: '24px' }}>{feature.icon}</span>
-                <h4 style={{ fontSize: '14px', fontWeight: 700, margin: '8px 0 4px' }}>{feature.title}</h4>
-                <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{feature.desc}</p>
-              </motion.div>
+                <span style={{ fontSize: '11px', fontWeight: 700, color: '#FB7185', textTransform: 'uppercase' }}>{item.tag}</span>
+                <h4 style={{ fontSize: '14px', fontWeight: 700, margin: '6px 0 4px', color: 'var(--text-primary)' }}>{item.title}</h4>
+                <p style={{ fontSize: '12.5px', color: 'var(--text-muted)', lineHeight: 1.5 }}>{item.desc}</p>
+              </div>
             ))}
           </div>
         </div>
 
-        {/* Basic Redis Commands */}
+        {/* Command Cheat Sheet */}
         <div style={cardStyle}>
-          <h3 style={{ fontSize: '20px', marginBottom: '16px', fontWeight: 700 }}>
-            📝 Essential Redis Commands
+          <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '12px' }}>
+            Core Redis Primitives
           </h3>
           <CodeBlock
-            title="redis-cli"
+            title="redis-cli terminal"
             language="bash"
-            code={`# Store a value with a key
-SET user:1 '{"name":"Alice","email":"alice@example.com"}'
+            code={`# 1. Store a JSON string with key
+SET user:42 '{"name":"Alex","plan":"pro"}'
 
-# Retrieve a value
-GET user:1
-# → '{"name":"Alice","email":"alice@example.com"}'
+# 2. Retrieve data in sub-millisecond
+GET user:42
 
-# Store with auto-expiration (TTL = 300 seconds)
-SETEX user:1 300 '{"name":"Alice","email":"alice@example.com"}'
+# 3. Store with auto-expiration (TTL = 300 seconds)
+SETEX session:token:99 300 '{"userId":42}'
 
-# Check remaining TTL
-TTL user:1
-# → 295
+# 4. Check time remaining before eviction
+TTL session:token:99
+# Output: 284 seconds
 
-# Delete a key
-DEL user:1
-
-# Check if key exists
-EXISTS user:1
-# → 0 (deleted)`}
+# 5. Explicitly invalidate/evict key
+DEL user:42`}
           />
         </div>
       </motion.div>

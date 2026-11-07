@@ -1,29 +1,45 @@
-/* ===== Global Styles ===== */
+/* ===== Premium Engineering Theme (Linear / Vercel Dark Style) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
 :root {
-  --redis-red: #DC382D;
-  --redis-red-light: #FF6B6B;
-  --db-blue: #336791;
-  --db-blue-light: #5B9BD5;
-  --app-teal: #38B2AC;
-  --app-teal-light: #4FD1C5;
-  --bg-primary: #0f0f1a;
-  --bg-secondary: #1a1a2e;
-  --bg-card: #16213e;
-  --bg-card-hover: #1a2744;
-  --text-primary: #e2e8f0;
-  --text-secondary: #a0aec0;
-  --text-muted: #718096;
-  --accent-green: #48BB78;
-  --accent-yellow: #ECC94B;
-  --accent-orange: #ED8936;
-  --accent-purple: #9F7AEA;
-  --border-color: #2d3748;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
-  --radius: 12px;
-  --radius-sm: 8px;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  /* Brand accents */
+  --redis-red: #E11D48; /* Vibrant crimson rose */
+  --redis-red-light: #FB7185;
+  --redis-red-glow: rgba(225, 29, 72, 0.22);
+  
+  --emerald: #10B981;
+  --emerald-glow: rgba(16, 185, 129, 0.2);
+  
+  --amber: #F59E0B;
+  --amber-glow: rgba(245, 158, 11, 0.2);
+  
+  --indigo: #6366F1;
+  --indigo-glow: rgba(99, 102, 241, 0.2);
+
+  /* Deep slate neutral palette (Linear / Raycast vibe) */
+  --bg-primary: #090A0F;
+  --bg-secondary: #0F1117;
+  --bg-card: #141721;
+  --bg-card-hover: #1A1F2C;
+  --bg-card-glass: rgba(20, 23, 33, 0.75);
+  
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-color-hover: rgba(255, 255, 255, 0.16);
+  --border-accent: rgba(225, 29, 72, 0.35);
+
+  /* Typography Colors */
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --text-dim: #475569;
+
+  /* Shadows */
+  --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+  --shadow-glow: 0 0 40px -10px var(--redis-red-glow);
+
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 * {
@@ -38,14 +54,21 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background: var(--bg-primary);
+  background-color: var(--bg-primary);
   color: var(--text-primary);
-  line-height: 1.7;
+  line-height: 1.65;
   overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(225, 29, 72, 0.08) 0%, transparent 60%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 100% 100%, 64px 64px, 64px 64px;
 }
 
+/* Custom Scrollbars */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
@@ -53,16 +76,20 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-color);
+  background: #1E2333;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
+  background: #2D3748;
 }
 
 ::selection {
-  background: rgba(220, 56, 45, 0.3);
-  color: var(--text-primary);
+  background: rgba(225, 29, 72, 0.3);
+  color: #FFFFFF;
 }
 
+/* Code block adjustments */
+pre, code {
+  font-family: var(--font-mono) !important;
+}
