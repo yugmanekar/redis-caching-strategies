@@ -1,42 +1,48 @@
-/* ===== Premium Engineering Theme (Linear / Vercel Dark Style) ===== */
+/* ===== Soothing Warm Light / Calm Engineering Theme ===== */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Brand accents */
-  --redis-red: #E11D48; /* Vibrant crimson rose */
-  --redis-red-light: #FB7185;
-  --redis-red-glow: rgba(225, 29, 72, 0.22);
-  
-  --emerald: #10B981;
-  --emerald-glow: rgba(16, 185, 129, 0.2);
-  
-  --amber: #F59E0B;
-  --amber-glow: rgba(245, 158, 11, 0.2);
-  
-  --indigo: #6366F1;
-  --indigo-glow: rgba(99, 102, 241, 0.2);
+  /* Warm Crimson & Redis Brand */
+  --redis-red: #D92D20;        /* Softer, warm crimson */
+  --redis-red-light: #F04438;
+  --redis-red-subtle: #FEF3F2;  /* Gentle pastel red tint */
+  --redis-red-border: #FECDCA;
 
-  /* Deep slate neutral palette */
-  --bg-primary: #090A0F;
-  --bg-secondary: #0F1117;
-  --bg-card: #141721;
-  --bg-card-hover: #1A1F2C;
-  --bg-card-glass: rgba(20, 23, 33, 0.75);
-  
-  --border-color: rgba(255, 255, 255, 0.08);
-  --border-color-hover: rgba(255, 255, 255, 0.16);
-  --border-accent: rgba(225, 29, 72, 0.35);
+  --emerald: #079455;          /* Soothing forest green for hits */
+  --emerald-subtle: #ECFDF3;
+  --emerald-border: #A6F4C5;
 
-  /* Typography Colors */
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  --text-dim: #475569;
+  --amber: #B54708;            /* Warm honey amber */
+  --amber-subtle: #FFFAEB;
+  --amber-border: #FEDF89;
 
-  /* Shadows */
-  --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
-  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.05);
-  --shadow-glow: 0 0 40px -10px var(--redis-red-glow);
+  --indigo: #444CE7;           /* Soft slate indigo */
+  --indigo-subtle: #EEF4FF;
+  --indigo-border: #C7D7FE;
+
+  /* Calming warm light backgrounds (paper / soft mist) */
+  --bg-primary: #F8FAFC;       /* Soft light slate canvas */
+  --bg-secondary: #FFFFFF;     /* Pure white for raised surfaces */
+  --bg-card: #FFFFFF;          /* Clean white cards */
+  --bg-card-hover: #F8FAFC;
+  --bg-subtle: #F1F5F9;        /* Pale neutral inset */
+  --bg-inset: #F8FAFC;
+
+  /* Soothing subtle borders */
+  --border-color: #E2E8F0;      /* Gentle border */
+  --border-color-hover: #CBD5E1;
+  --border-accent: rgba(217, 45, 32, 0.25);
+
+  /* High legibility typography */
+  --text-primary: #0F172A;     /* Deep slate (easy on eyes) */
+  --text-secondary: #334155;   /* Balanced body slate */
+  --text-muted: #64748B;       /* Secondary neutral */
+  --text-dim: #94A3B8;         /* Subdued annotations */
+
+  /* Soft diffused shadows */
+  --shadow-subtle: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px 0 rgba(15, 23, 42, 0.03);
+  --shadow-card: 0 4px 12px -2px rgba(15, 23, 42, 0.06), 0 2px 4px -1px rgba(15, 23, 42, 0.03);
+  --shadow-glow: 0 10px 25px -5px rgba(217, 45, 32, 0.12);
 
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -56,19 +62,19 @@ body {
   font-family: var(--font-sans);
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  line-height: 1.65;
+  line-height: 1.68;
   overflow-x: hidden;
+  /* Very soft paper dot-grid pattern */
   background-image: 
-    radial-gradient(circle at 50% 0%, rgba(225, 29, 72, 0.08) 0%, transparent 60%),
-    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-  background-size: 100% 100%, 64px 64px, 64px 64px;
+    radial-gradient(circle at 50% 0%, rgba(217, 45, 32, 0.04) 0%, transparent 50%),
+    radial-gradient(#CBD5E1 0.75px, transparent 0.75px);
+  background-size: 100% 100%, 24px 24px;
 }
 
-/* Custom Scrollbars */
+/* Soothing Scrollbars */
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -76,20 +82,19 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1E2333;
+  background: #CBD5E1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #2D3748;
+  background: #94A3B8;
 }
 
 ::selection {
-  background: rgba(225, 29, 72, 0.3);
-  color: #FFFFFF;
+  background: #FEE4E2;
+  color: #912018;
 }
 
-/* Code block adjustments */
 pre, code {
   font-family: var(--font-mono) !important;
 }

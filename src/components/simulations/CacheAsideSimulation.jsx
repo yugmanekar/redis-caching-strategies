@@ -36,17 +36,18 @@ const STEP_DESCRIPTIONS = {
 
 // ─── Colors ─────────────────────────────────────────────────────────
 const COLORS = {
-  redis: '#DC382D',
-  db: '#336791',
-  app: '#38B2AC',
-  bg: '#1a1a2e',
-  surface: '#16213e',
-  surfaceLight: '#1f2f50',
-  text: '#e2e8f0',
-  textDim: '#94a3b8',
-  accent: '#f59e0b',
-  success: '#10b981',
-  error: '#ef4444',
+  redis: '#D92D20',
+  db: '#2E5B82',
+  app: '#079455',
+  bg: '#F8FAFC',
+  surface: '#FFFFFF',
+  surfaceLight: '#F1F5F9',
+  border: '#E2E8F0',
+  text: '#0F172A',
+  textDim: '#64748B',
+  accent: '#B54708',
+  success: '#079455',
+  error: '#D92D20',
 };
 
 // ─── Helpers ────────────────────────────────────────────────────────

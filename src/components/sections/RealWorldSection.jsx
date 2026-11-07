@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ShoppingCart, HeartPulse, MessageSquare, TrendingUp, HelpCircle, ArrowRight } from 'lucide-react';
+import { ShoppingCart, HeartPulse, MessageSquare, TrendingUp } from 'lucide-react';
 
 const sectionStyle = {
   padding: '80px 24px',
@@ -9,12 +9,12 @@ const sectionStyle = {
 };
 
 const headingStyle = {
-  fontSize: '14px',
+  fontSize: '12px',
   fontWeight: 700,
-  color: '#48BB78',
+  color: '#079455',
   textTransform: 'uppercase',
-  letterSpacing: '2px',
-  marginBottom: '12px',
+  letterSpacing: '1.5px',
+  marginBottom: '8px',
 };
 
 const titleStyle = {
@@ -22,16 +22,18 @@ const titleStyle = {
   fontWeight: 800,
   lineHeight: 1.2,
   marginBottom: '16px',
+  color: 'var(--text-primary)',
 };
 
 const cardStyle = {
-  background: 'var(--bg-card)',
+  background: '#FFFFFF',
   borderRadius: '16px',
   border: '1px solid var(--border-color)',
   padding: '24px',
   marginBottom: '20px',
   cursor: 'pointer',
-  transition: 'all 0.25s ease',
+  transition: 'all 0.2s ease',
+  boxShadow: 'var(--shadow-subtle)',
 };
 
 export default function RealWorldSection({ onComplete }) {
@@ -88,15 +90,15 @@ export default function RealWorldSection({ onComplete }) {
   return (
     <div ref={ref} style={sectionStyle}>
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
       >
         <p style={headingStyle}>Chapter 6 • System Design in Practice</p>
         <h2 style={titleStyle}>
-          Production <span style={{ color: '#48BB78' }}>Engineering Scenarios</span>
+          Production <span style={{ color: '#079455' }}>Engineering Scenarios</span>
         </h2>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '16px', maxWidth: '850px', marginBottom: '28px', lineHeight: 1.7 }}>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '15.5px', maxWidth: '850px', marginBottom: '28px', lineHeight: 1.7 }}>
           How high-scale production systems combine Redis data structures and caching patterns to solve extreme traffic constraints.
         </p>
 
@@ -109,19 +111,19 @@ export default function RealWorldSection({ onComplete }) {
               <motion.div
                 key={idx}
                 onClick={() => setActiveCase(idx)}
-                whileHover={{ y: -4 }}
+                whileHover={{ y: -3 }}
                 style={{
                   ...cardStyle,
                   marginBottom: 0,
-                  border: isActive ? '2px solid #48BB78' : '1px solid var(--border-color)',
-                  background: isActive ? 'rgba(72, 187, 120, 0.08)' : 'var(--bg-secondary)',
+                  border: isActive ? '2px solid #079455' : '1px solid #E2E8F0',
+                  background: isActive ? '#ECFDF3' : '#FFFFFF',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-                  <CaseIcon size={18} style={{ color: isActive ? '#48BB78' : 'var(--text-muted)' }} />
-                  <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-muted)' }}>{c.company}</span>
+                  <CaseIcon size={18} style={{ color: isActive ? '#079455' : '#64748B' }} />
+                  <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748B' }}>{c.company}</span>
                 </div>
-                <h4 style={{ fontSize: '15px', fontWeight: 700, color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)' }}>
+                <h4 style={{ fontSize: '15px', fontWeight: 700, color: isActive ? '#079455' : '#0F172A' }}>
                   {c.title}
                 </h4>
               </motion.div>
@@ -130,36 +132,36 @@ export default function RealWorldSection({ onComplete }) {
         </div>
 
         {/* Deep Dive Card */}
-        <div style={{ ...cardStyle, cursor: 'default', background: 'var(--bg-card)', padding: '32px' }}>
+        <div style={{ ...cardStyle, cursor: 'default', background: '#FFFFFF', padding: '32px', boxShadow: 'var(--shadow-card)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <div style={{ padding: '10px', borderRadius: '10px', background: 'rgba(72, 187, 120, 0.15)', color: '#48BB78' }}>
+            <div style={{ padding: '10px', borderRadius: '10px', background: '#ECFDF3', color: '#079455' }}>
               <Icon size={24} />
             </div>
             <div>
-              <span style={{ fontSize: '12px', fontWeight: 700, color: '#48BB78', textTransform: 'uppercase' }}>Selected Scenario</span>
-              <h3 style={{ fontSize: '22px', fontWeight: 800 }}>{current.title}</h3>
+              <span style={{ fontSize: '11px', fontWeight: 700, color: '#079455', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Selected Scenario</span>
+              <h3 style={{ fontSize: '22px', fontWeight: 800, color: '#0F172A' }}>{current.title}</h3>
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px', marginBottom: '24px' }}>
-            <div style={{ padding: '16px', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
-              <span style={{ fontSize: '12px', color: 'var(--text-muted)', display: 'block', marginBottom: '4px' }}>Recommended Pattern</span>
-              <span style={{ fontSize: '15px', fontWeight: 700, color: '#FF6B6B' }}>{current.strategy}</span>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px', marginBottom: '24px' }}>
+            <div style={{ padding: '16px', borderRadius: '12px', background: '#F8FAFC', border: '1px solid #E2E8F0' }}>
+              <span style={{ fontSize: '11px', color: '#64748B', display: 'block', marginBottom: '4px', textTransform: 'uppercase', fontWeight: 700 }}>Recommended Pattern</span>
+              <span style={{ fontSize: '14.5px', fontWeight: 700, color: '#D92D20' }}>{current.strategy}</span>
             </div>
 
-            <div style={{ padding: '16px', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
-              <span style={{ fontSize: '12px', color: 'var(--text-muted)', display: 'block', marginBottom: '4px' }}>Redis Key Pattern</span>
-              <code style={{ fontSize: '14px', fontFamily: 'var(--font-mono)', color: '#38B2AC' }}>{current.keyStructure}</code>
+            <div style={{ padding: '16px', borderRadius: '12px', background: '#F8FAFC', border: '1px solid #E2E8F0' }}>
+              <span style={{ fontSize: '11px', color: '#64748B', display: 'block', marginBottom: '4px', textTransform: 'uppercase', fontWeight: 700 }}>Redis Key Pattern</span>
+              <code style={{ fontSize: '13.5px', fontFamily: 'var(--font-mono)', color: '#079455', fontWeight: 600 }}>{current.keyStructure}</code>
             </div>
 
-            <div style={{ padding: '16px', borderRadius: '12px', background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
-              <span style={{ fontSize: '12px', color: 'var(--text-muted)', display: 'block', marginBottom: '4px' }}>TTL Expiration Policy</span>
-              <span style={{ fontSize: '14px', fontWeight: 600, color: '#ECC94B' }}>{current.ttl}</span>
+            <div style={{ padding: '16px', borderRadius: '12px', background: '#F8FAFC', border: '1px solid #E2E8F0' }}>
+              <span style={{ fontSize: '11px', color: '#64748B', display: 'block', marginBottom: '4px', textTransform: 'uppercase', fontWeight: 700 }}>TTL Expiration Policy</span>
+              <span style={{ fontSize: '14px', fontWeight: 600, color: '#B54708' }}>{current.ttl}</span>
             </div>
           </div>
 
-          <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '8px' }}>Architectural Rationale:</h4>
-          <p style={{ fontSize: '14.5px', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
+          <h4 style={{ fontSize: '15px', fontWeight: 700, marginBottom: '8px', color: '#0F172A' }}>Architectural Rationale:</h4>
+          <p style={{ fontSize: '14.5px', color: '#334155', lineHeight: 1.7 }}>
             {current.why}
           </p>
         </div>
@@ -167,4 +169,3 @@ export default function RealWorldSection({ onComplete }) {
     </div>
   );
 }
-

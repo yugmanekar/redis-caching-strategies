@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Terminal, Play, RotateCcw, Check, Sparkles, AlertCircle } from 'lucide-react';
-import CodeBlock from '../ui/CodeBlock';
+import { Terminal, RotateCcw } from 'lucide-react';
 
 const sectionStyle = {
   padding: '80px 24px',
@@ -10,12 +9,12 @@ const sectionStyle = {
 };
 
 const headingStyle = {
-  fontSize: '14px',
+  fontSize: '12px',
   fontWeight: 700,
-  color: '#38B2AC',
+  color: '#079455',
   textTransform: 'uppercase',
-  letterSpacing: '2px',
-  marginBottom: '12px',
+  letterSpacing: '1.5px',
+  marginBottom: '8px',
 };
 
 const titleStyle = {
@@ -23,14 +22,16 @@ const titleStyle = {
   fontWeight: 800,
   lineHeight: 1.2,
   marginBottom: '16px',
+  color: 'var(--text-primary)',
 };
 
 const cardStyle = {
-  background: 'var(--bg-card)',
+  background: '#FFFFFF',
   borderRadius: '16px',
   border: '1px solid var(--border-color)',
   padding: '28px',
   marginBottom: '24px',
+  boxShadow: 'var(--shadow-card)',
 };
 
 export default function ChallengeSection({ onComplete }) {
@@ -93,7 +94,6 @@ export default function ChallengeSection({ onComplete }) {
     addLog(`✏️ Client triggers WRITE for key "${key}"`, 'info');
 
     if (selectedPattern === 'cache-aside') {
-      // Update DB and invalidate Cache
       setDatabaseMemory(prev => ({ ...prev, [key]: updatedRecord }));
       setCacheMemory(prev => {
         const next = { ...prev };
@@ -103,7 +103,6 @@ export default function ChallengeSection({ onComplete }) {
       addLog(`🗄️ [DB UPDATE] Saved new state to PostgreSQL`, 'info');
       addLog(`🗑️ [CACHE EVICT] Purged "${key}" from Redis to eliminate stale data (DEL)`, 'warn');
     } else if (selectedPattern === 'write-through') {
-      // Synchronously write to BOTH
       setDatabaseMemory(prev => ({ ...prev, [key]: updatedRecord }));
       setCacheMemory(prev => ({ ...prev, [key]: updatedRecord }));
       addLog(`🔄 [DUAL WRITE] Synchronously committed to BOTH Postgres & Redis`, 'success');
@@ -118,35 +117,36 @@ export default function ChallengeSection({ onComplete }) {
   return (
     <div ref={ref} style={sectionStyle}>
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
       >
         <p style={headingStyle}>Chapter 8 • Hands-on Engineering Lab</p>
         <h2 style={titleStyle}>
-          Build Your Own <span style={{ color: '#38B2AC' }}>Caching Policy</span>
+          Build Your Own <span style={{ color: '#079455' }}>Caching Policy</span>
         </h2>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '16px', maxWidth: '850px', marginBottom: '28px', lineHeight: 1.7 }}>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '15.5px', maxWidth: '850px', marginBottom: '28px', lineHeight: 1.7 }}>
           Experiment with custom reads and writes in this multi-tier architectural lab. Toggle between Cache-Aside and Write-Through to observe how data synchronization alters cache residency.
         </p>
 
         {/* Configuration Bar */}
-        <div style={{ ...cardStyle, background: 'var(--bg-secondary)', padding: '20px' }}>
-          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-muted)' }}>STRATEGY:</span>
+        <div style={{ ...cardStyle, background: '#F8FAFC', padding: '18px 22px' }}>
+          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>STRATEGY:</span>
               <button
                 onClick={() => setSelectedPattern('cache-aside')}
                 style={{
-                  padding: '8px 16px',
+                  padding: '7px 15px',
                   borderRadius: '8px',
                   fontSize: '13px',
                   fontWeight: 600,
                   border: '1px solid',
-                  borderColor: selectedPattern === 'cache-aside' ? '#38B2AC' : 'var(--border-color)',
-                  background: selectedPattern === 'cache-aside' ? 'rgba(56, 178, 172, 0.15)' : 'transparent',
-                  color: selectedPattern === 'cache-aside' ? '#38B2AC' : 'var(--text-secondary)',
+                  borderColor: selectedPattern === 'cache-aside' ? '#079455' : '#E2E8F0',
+                  background: selectedPattern === 'cache-aside' ? '#ECFDF3' : '#FFFFFF',
+                  color: selectedPattern === 'cache-aside' ? '#027A48' : '#475569',
                   cursor: 'pointer',
+                  boxShadow: 'var(--shadow-subtle)',
                 }}
               >
                 Cache-Aside (Lazy + DEL)
@@ -154,15 +154,16 @@ export default function ChallengeSection({ onComplete }) {
               <button
                 onClick={() => setSelectedPattern('write-through')}
                 style={{
-                  padding: '8px 16px',
+                  padding: '7px 15px',
                   borderRadius: '8px',
                   fontSize: '13px',
                   fontWeight: 600,
                   border: '1px solid',
-                  borderColor: selectedPattern === 'write-through' ? '#DC382D' : 'var(--border-color)',
-                  background: selectedPattern === 'write-through' ? 'rgba(220, 56, 45, 0.15)' : 'transparent',
-                  color: selectedPattern === 'write-through' ? '#DC382D' : 'var(--text-secondary)',
+                  borderColor: selectedPattern === 'write-through' ? '#D92D20' : '#E2E8F0',
+                  background: selectedPattern === 'write-through' ? '#FEF3F2' : '#FFFFFF',
+                  color: selectedPattern === 'write-through' ? '#B42318' : '#475569',
                   cursor: 'pointer',
+                  boxShadow: 'var(--shadow-subtle)',
                 }}
               >
                 Write-Through (Sync Dual)
@@ -172,19 +173,20 @@ export default function ChallengeSection({ onComplete }) {
             <button
               onClick={handleFlushCache}
               style={{
-                padding: '8px 14px',
+                padding: '7px 14px',
                 borderRadius: '8px',
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid var(--border-color)',
-                color: 'var(--text-muted)',
-                fontSize: '12px',
+                background: '#FFFFFF',
+                border: '1px solid #CBD5E1',
+                color: '#64748B',
+                fontSize: '12.5px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '6px',
+                fontWeight: 600,
               }}
             >
-              <RotateCcw size={14} /> Flush Redis (FLUSHDB)
+              <RotateCcw size={13} /> Flush Redis (FLUSHDB)
             </button>
           </div>
         </div>
@@ -193,12 +195,12 @@ export default function ChallengeSection({ onComplete }) {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px', marginBottom: '24px' }}>
           {/* Controls Box */}
           <div style={cardStyle}>
-            <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Terminal size={18} style={{ color: '#38B2AC' }} /> Operations Controller
+            <h4 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px', color: '#0F172A' }}>
+              <Terminal size={18} style={{ color: '#079455' }} /> Operations Controller
             </h4>
 
             <div style={{ marginBottom: '16px' }}>
-              <label style={{ display: 'block', fontSize: '12px', color: 'var(--text-muted)', marginBottom: '6px' }}>TARGET KEY</label>
+              <label style={{ display: 'block', fontSize: '11px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', marginBottom: '6px' }}>TARGET KEY</label>
               <input
                 type="text"
                 value={requestedKey}
@@ -207,11 +209,12 @@ export default function ChallengeSection({ onComplete }) {
                   width: '100%',
                   padding: '10px 14px',
                   borderRadius: '8px',
-                  background: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-color)',
-                  color: 'var(--text-primary)',
+                  background: '#F8FAFC',
+                  border: '1px solid #CBD5E1',
+                  color: '#0F172A',
                   fontFamily: 'var(--font-mono)',
                   fontSize: '14px',
+                  outline: 'none',
                 }}
               />
             </div>
@@ -223,12 +226,13 @@ export default function ChallengeSection({ onComplete }) {
                   flex: 1,
                   padding: '12px',
                   borderRadius: '8px',
-                  background: 'linear-gradient(135deg, #38B2AC, #319795)',
+                  background: 'linear-gradient(180deg, #079455 0%, #067647 100%)',
                   color: 'white',
-                  fontWeight: 700,
-                  fontSize: '14px',
+                  fontWeight: 600,
+                  fontSize: '13.5px',
                   border: 'none',
                   cursor: 'pointer',
+                  boxShadow: '0 2px 8px rgba(7, 148, 85, 0.25)',
                 }}
               >
                 Execute READ
@@ -240,34 +244,36 @@ export default function ChallengeSection({ onComplete }) {
                   flex: 1,
                   padding: '12px',
                   borderRadius: '8px',
-                  background: 'linear-gradient(135deg, #DC382D, #c0392b)',
+                  background: 'linear-gradient(180deg, #D92D20 0%, #B42318 100%)',
                   color: 'white',
-                  fontWeight: 700,
-                  fontSize: '14px',
+                  fontWeight: 600,
+                  fontSize: '13.5px',
                   border: 'none',
                   cursor: 'pointer',
+                  boxShadow: '0 2px 8px rgba(217, 45, 32, 0.25)',
                 }}
               >
-                Execute WRITE (Update Price)
+                Execute WRITE
               </button>
             </div>
 
             {/* Quick keys */}
             <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Quick Select:</span>
+              <span style={{ fontSize: '12px', color: '#64748B', fontWeight: 600 }}>Quick Select:</span>
               {['course:101', 'course:102', 'course:999'].map(k => (
                 <button
                   key={k}
                   onClick={() => setRequestedKey(k)}
                   style={{
-                    padding: '4px 8px',
-                    borderRadius: '4px',
-                    background: 'var(--bg-secondary)',
-                    border: '1px solid var(--border-color)',
-                    color: 'var(--text-secondary)',
+                    padding: '4px 9px',
+                    borderRadius: '6px',
+                    background: '#F1F5F9',
+                    border: '1px solid #E2E8F0',
+                    color: '#334155',
                     fontSize: '12px',
                     fontFamily: 'var(--font-mono)',
                     cursor: 'pointer',
+                    fontWeight: 500,
                   }}
                 >
                   {k}
@@ -279,18 +285,19 @@ export default function ChallengeSection({ onComplete }) {
           {/* System State Viewers */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {/* Redis State */}
-            <div style={{ ...cardStyle, marginBottom: 0, padding: '18px', borderLeft: '4px solid #DC382D' }}>
+            <div style={{ ...cardStyle, marginBottom: 0, padding: '18px', borderLeft: '4px solid #D92D20' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                <span style={{ fontSize: '13px', fontWeight: 700, color: '#FF6B6B' }}>🔴 REDIS IN-MEMORY STATE</span>
-                <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>{Object.keys(cacheMemory).length} keys cached</span>
+                <span style={{ fontSize: '12.5px', fontWeight: 700, color: '#D92D20' }}>🔴 REDIS IN-MEMORY STATE</span>
+                <span style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>{Object.keys(cacheMemory).length} keys cached</span>
               </div>
               <pre style={{
-                background: '#12121e',
+                background: '#F8FAFC',
+                border: '1px solid #E2E8F0',
                 padding: '12px',
                 borderRadius: '8px',
                 fontSize: '12px',
                 fontFamily: 'var(--font-mono)',
-                color: Object.keys(cacheMemory).length > 0 ? '#48BB78' : 'var(--text-muted)',
+                color: Object.keys(cacheMemory).length > 0 ? '#027A48' : '#94A3B8',
                 maxHeight: '120px',
                 overflowY: 'auto',
                 margin: 0,
@@ -302,18 +309,19 @@ export default function ChallengeSection({ onComplete }) {
             </div>
 
             {/* DB State */}
-            <div style={{ ...cardStyle, marginBottom: 0, padding: '18px', borderLeft: '4px solid #5B9BD5' }}>
+            <div style={{ ...cardStyle, marginBottom: 0, padding: '18px', borderLeft: '4px solid #444CE7' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                <span style={{ fontSize: '13px', fontWeight: 700, color: '#5B9BD5' }}>🗄️ POSTGRESQL PRIMARY DATABASE</span>
-                <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Permanent Disk Store</span>
+                <span style={{ fontSize: '12.5px', fontWeight: 700, color: '#444CE7' }}>🗄️ POSTGRESQL PRIMARY DATABASE</span>
+                <span style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>Permanent Disk Store</span>
               </div>
               <pre style={{
-                background: '#12121e',
+                background: '#F8FAFC',
+                border: '1px solid #E2E8F0',
                 padding: '12px',
                 borderRadius: '8px',
                 fontSize: '12px',
                 fontFamily: 'var(--font-mono)',
-                color: 'var(--text-secondary)',
+                color: '#334155',
                 maxHeight: '120px',
                 overflowY: 'auto',
                 margin: 0,
@@ -325,17 +333,17 @@ export default function ChallengeSection({ onComplete }) {
         </div>
 
         {/* Live Terminal Output */}
-        <div style={{ ...cardStyle, padding: '18px', background: '#0e0e18' }}>
+        <div style={{ ...cardStyle, padding: '18px', background: '#F8FAFC', border: '1px solid #E2E8F0' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-            <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ fontSize: '12px', fontWeight: 700, color: '#475569', fontFamily: 'var(--font-mono)' }}>
               &gt;_ ARCHITECTURAL EVENT LOGS
             </span>
-            <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Recent 10 events</span>
+            <span style={{ fontSize: '11px', color: '#64748B' }}>Recent 10 events</span>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '180px', overflowY: 'auto' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', maxHeight: '180px', overflowY: 'auto' }}>
             {logs.length === 0 ? (
-              <span style={{ fontSize: '13px', color: 'var(--text-muted)', fontStyle: 'italic' }}>
+              <span style={{ fontSize: '13px', color: '#94A3B8', fontStyle: 'italic' }}>
                 Run a READ or WRITE operation above to see system telemetry.
               </span>
             ) : (
@@ -344,10 +352,10 @@ export default function ChallengeSection({ onComplete }) {
                   fontSize: '12.5px',
                   fontFamily: 'var(--font-mono)',
                   display: 'flex',
-                  gap: '12px',
-                  color: l.type === 'success' ? '#48BB78' : l.type === 'warn' ? '#ECC94B' : l.type === 'error' ? '#FF6B6B' : 'var(--text-secondary)'
+                  gap: '10px',
+                  color: l.type === 'success' ? '#079455' : l.type === 'warn' ? '#B54708' : l.type === 'error' ? '#D92D20' : '#334155'
                 }}>
-                  <span style={{ color: 'var(--text-muted)', minWidth: '70px' }}>[{l.time}]</span>
+                  <span style={{ color: '#94A3B8', minWidth: '70px' }}>[{l.time}]</span>
                   <span>{l.message}</span>
                 </div>
               ))
@@ -359,8 +367,8 @@ export default function ChallengeSection({ onComplete }) {
         <div style={{
           padding: '24px',
           borderRadius: '16px',
-          background: 'linear-gradient(135deg, rgba(56, 178, 172, 0.15), rgba(220, 56, 45, 0.15))',
-          border: '1px solid rgba(56, 178, 172, 0.3)',
+          background: '#ECFDF3',
+          border: '1px solid #A6F4C5',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -368,24 +376,25 @@ export default function ChallengeSection({ onComplete }) {
           gap: '16px',
         }}>
           <div>
-            <h4 style={{ fontSize: '18px', fontWeight: 800, color: '#38B2AC', marginBottom: '4px' }}>
+            <h4 style={{ fontSize: '17px', fontWeight: 800, color: '#027A48', marginBottom: '4px' }}>
               🎉 Course Completed!
             </h4>
-            <p style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
+            <p style={{ fontSize: '14px', color: '#334155' }}>
               You've mastered Cache-Aside, Write-Through, and Invalidation mechanics in 45 minutes.
             </p>
           </div>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             style={{
-              padding: '12px 24px',
+              padding: '11px 22px',
               borderRadius: '8px',
-              background: '#38B2AC',
+              background: '#079455',
               color: 'white',
-              fontWeight: 700,
-              fontSize: '14px',
+              fontWeight: 600,
+              fontSize: '13.5px',
               border: 'none',
               cursor: 'pointer',
+              boxShadow: '0 2px 8px rgba(7, 148, 85, 0.25)',
             }}
           >
             Back to Top
@@ -395,4 +404,3 @@ export default function ChallengeSection({ onComplete }) {
     </div>
   );
 }
-

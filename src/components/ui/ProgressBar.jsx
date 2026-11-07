@@ -4,21 +4,21 @@ export default function ProgressBar({ progress }) {
   return (
     <div style={{
       position: 'fixed',
-      top: '64px',
+      top: '66px',
       left: 0,
       right: 0,
-      height: '2px',
-      background: 'rgba(255, 255, 255, 0.04)',
+      height: '3px',
+      background: '#E2E8F0',
       zIndex: 999,
     }}>
       <motion.div
         style={{
           height: '100%',
-          background: 'linear-gradient(90deg, #E11D48, #FB7185, #6366F1)',
-          boxShadow: '0 0 8px rgba(225, 29, 72, 0.6)',
+          background: 'linear-gradient(90deg, #D92D20, #F04438)',
+          boxShadow: '0 0 6px rgba(217, 45, 32, 0.4)',
         }}
         animate={{ width: `${progress}%` }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
+        transition={{ duration: 0.35, ease: 'easeOut' }}
       />
     </div>
   );

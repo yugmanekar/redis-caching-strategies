@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Zap, Database, ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Zap, Database, ArrowRight, CheckCircle2 } from 'lucide-react';
 import CodeBlock from '../ui/CodeBlock';
 import VideoButton from '../ui/VideoButton';
 
@@ -11,24 +11,25 @@ const sectionStyle = {
 };
 
 const headingStyle = {
-  fontSize: '12.5px',
+  fontSize: '12px',
   fontWeight: 700,
-  color: '#FB7185',
+  color: '#D92D20',
   textTransform: 'uppercase',
   letterSpacing: '1.5px',
   marginBottom: '8px',
 };
 
 const titleStyle = {
-  fontSize: 'clamp(28px, 3.8vw, 42px)',
+  fontSize: 'clamp(28px, 3.8vw, 40px)',
   fontWeight: 800,
   lineHeight: 1.15,
   marginBottom: '20px',
   letterSpacing: '-0.025em',
+  color: 'var(--text-primary)',
 };
 
 const cardStyle = {
-  background: 'var(--bg-card)',
+  background: '#FFFFFF',
   borderRadius: '16px',
   border: '1px solid var(--border-color)',
   padding: '30px',
@@ -70,23 +71,24 @@ export default function IntroSection({ onComplete, onOpenVideo }) {
 
         <h2 style={titleStyle}>
           The Latency Bottleneck &{' '}
-          <span style={{ color: '#FB7185' }}>Redis</span>
+          <span style={{ color: '#D92D20' }}>Redis</span>
         </h2>
 
         {/* Latency Comparison Card */}
         <div style={cardStyle}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
             <span style={{
-              padding: '6px 12px',
+              padding: '4px 10px',
               borderRadius: '6px',
-              background: 'rgba(245, 158, 11, 0.1)',
-              color: '#F59E0B',
+              background: '#FFFAEB',
+              border: '1px solid #FEDF89',
+              color: '#B54708',
               fontSize: '12px',
               fontWeight: 700,
             }}>
               BENCHMARK
             </span>
-            <h3 style={{ fontSize: '18px', fontWeight: 700 }}>Disk I/O vs In-Memory RAM</h3>
+            <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#0F172A' }}>Disk I/O vs In-Memory RAM</h3>
           </div>
 
           <p style={{ color: 'var(--text-secondary)', marginBottom: '24px', lineHeight: 1.7, fontSize: '15px' }}>
@@ -98,24 +100,24 @@ export default function IntroSection({ onComplete, onOpenVideo }) {
             <div style={{
               padding: '24px',
               borderRadius: '12px',
-              background: 'rgba(15, 17, 23, 0.9)',
-              border: '1px solid var(--border-color)',
+              background: '#F8FAFC',
+              border: '1px solid #E2E8F0',
               textAlign: 'center',
             }}>
               <Database size={28} color="#64748B" style={{ marginBottom: '10px' }} />
-              <h4 style={{ color: 'var(--text-secondary)', fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
+              <h4 style={{ color: '#475569', fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
                 PostgreSQL (SSD Disk / Network)
               </h4>
               <div style={{
                 fontSize: '38px',
                 fontWeight: 800,
                 fontFamily: 'var(--font-mono)',
-                color: dbTime !== null ? '#FB7185' : 'var(--text-dim)',
+                color: dbTime !== null ? '#D92D20' : '#94A3B8',
                 letterSpacing: '-0.02em',
               }}>
                 {dbTime !== null ? `${dbTime}ms` : '—'}
               </div>
-              <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '6px' }}>
+              <p style={{ fontSize: '12px', color: '#64748B', marginTop: '6px' }}>
                 Query execution + Disk seek
               </p>
             </div>
@@ -124,24 +126,24 @@ export default function IntroSection({ onComplete, onOpenVideo }) {
             <div style={{
               padding: '24px',
               borderRadius: '12px',
-              background: 'rgba(225, 29, 72, 0.05)',
-              border: '1px solid rgba(225, 29, 72, 0.25)',
+              background: '#FEF3F2',
+              border: '1px solid #FECDCA',
               textAlign: 'center',
             }}>
-              <Zap size={28} color="#FB7185" style={{ marginBottom: '10px' }} />
-              <h4 style={{ color: '#FB7185', fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
+              <Zap size={28} color="#D92D20" style={{ marginBottom: '10px' }} />
+              <h4 style={{ color: '#D92D20', fontSize: '14px', fontWeight: 600, marginBottom: '6px' }}>
                 Redis In-Memory Lookup
               </h4>
               <div style={{
                 fontSize: '38px',
                 fontWeight: 800,
                 fontFamily: 'var(--font-mono)',
-                color: cacheTime !== null ? '#10B981' : 'var(--text-dim)',
+                color: cacheTime !== null ? '#079455' : '#94A3B8',
                 letterSpacing: '-0.02em',
               }}>
                 {cacheTime !== null ? `${cacheTime}ms` : '—'}
               </div>
-              <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '6px' }}>
+              <p style={{ fontSize: '12px', color: '#64748B', marginTop: '6px' }}>
                 O(1) Hash Table Lookup in RAM
               </p>
             </div>
@@ -155,13 +157,13 @@ export default function IntroSection({ onComplete, onOpenVideo }) {
               width: '100%',
               padding: '13px',
               borderRadius: '10px',
-              background: 'linear-gradient(180deg, #E11D48 0%, #BE123C 100%)',
+              background: 'linear-gradient(180deg, #D92D20 0%, #B42318 100%)',
               color: 'white',
               fontSize: '14px',
               fontWeight: 600,
               border: 'none',
               cursor: 'pointer',
-              boxShadow: '0 4px 15px -2px rgba(225, 29, 72, 0.4)',
+              boxShadow: '0 4px 12px rgba(217, 45, 32, 0.25)',
             }}
           >
             ⚡ Run Live Latency Benchmark
@@ -175,13 +177,14 @@ export default function IntroSection({ onComplete, onOpenVideo }) {
                 marginTop: '16px',
                 padding: '12px 18px',
                 borderRadius: '8px',
-                background: 'rgba(16, 185, 129, 0.1)',
-                border: '1px solid rgba(16, 185, 129, 0.25)',
-                color: '#10B981',
+                background: '#ECFDF3',
+                border: '1px solid #A6F4C5',
+                color: '#079455',
                 fontSize: '13.5px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
+                fontWeight: 500,
               }}
             >
               <CheckCircle2 size={16} />
@@ -194,7 +197,7 @@ export default function IntroSection({ onComplete, onOpenVideo }) {
 
         {/* Redis Architectural Highlights */}
         <div style={cardStyle}>
-          <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '16px' }}>
+          <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '16px', color: '#0F172A' }}>
             Why Redis Dominates Web Infrastructure
           </h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '14px' }}>
@@ -209,12 +212,12 @@ export default function IntroSection({ onComplete, onOpenVideo }) {
                 style={{
                   padding: '18px',
                   borderRadius: '10px',
-                  background: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-color)',
+                  background: '#F8FAFC',
+                  border: '1px solid #E2E8F0',
                 }}
               >
-                <span style={{ fontSize: '11px', fontWeight: 700, color: '#FB7185', textTransform: 'uppercase' }}>{item.tag}</span>
-                <h4 style={{ fontSize: '14px', fontWeight: 700, margin: '6px 0 4px', color: 'var(--text-primary)' }}>{item.title}</h4>
+                <span style={{ fontSize: '11px', fontWeight: 700, color: '#D92D20', textTransform: 'uppercase' }}>{item.tag}</span>
+                <h4 style={{ fontSize: '14px', fontWeight: 700, margin: '6px 0 4px', color: '#0F172A' }}>{item.title}</h4>
                 <p style={{ fontSize: '12.5px', color: 'var(--text-muted)', lineHeight: 1.5 }}>{item.desc}</p>
               </div>
             ))}
@@ -223,7 +226,7 @@ export default function IntroSection({ onComplete, onOpenVideo }) {
 
         {/* Command Cheat Sheet */}
         <div style={cardStyle}>
-          <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '12px' }}>
+          <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '12px', color: '#0F172A' }}>
             Core Redis Primitives
           </h3>
           <CodeBlock

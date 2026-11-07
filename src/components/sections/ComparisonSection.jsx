@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Scale, Check, X, Sparkles, Filter } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 const sectionStyle = {
   padding: '80px 24px',
@@ -9,12 +9,12 @@ const sectionStyle = {
 };
 
 const headingStyle = {
-  fontSize: '14px',
+  fontSize: '12px',
   fontWeight: 700,
-  color: '#ED8936',
+  color: '#B54708',
   textTransform: 'uppercase',
-  letterSpacing: '2px',
-  marginBottom: '12px',
+  letterSpacing: '1.5px',
+  marginBottom: '8px',
 };
 
 const titleStyle = {
@@ -22,14 +22,16 @@ const titleStyle = {
   fontWeight: 800,
   lineHeight: 1.2,
   marginBottom: '16px',
+  color: 'var(--text-primary)',
 };
 
 const cardStyle = {
-  background: 'var(--bg-card)',
+  background: '#FFFFFF',
   borderRadius: '16px',
   border: '1px solid var(--border-color)',
   padding: '28px',
   marginBottom: '24px',
+  boxShadow: 'var(--shadow-card)',
 };
 
 export default function ComparisonSection({ onComplete }) {
@@ -93,15 +95,15 @@ export default function ComparisonSection({ onComplete }) {
   return (
     <div ref={ref} style={sectionStyle}>
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
       >
         <p style={headingStyle}>Chapter 5 • Architecture Trade-offs</p>
         <h2 style={titleStyle}>
-          Side-by-Side <span style={{ color: '#ED8936' }}>Pattern Matrix</span>
+          Side-by-Side <span style={{ color: '#B54708' }}>Pattern Matrix</span>
         </h2>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '16px', maxWidth: '850px', marginBottom: '28px', lineHeight: 1.7 }}>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '15.5px', maxWidth: '850px', marginBottom: '28px', lineHeight: 1.7 }}>
           There is no single "best" caching design. Every pattern trades off read throughput, write latency, RAM utilization, and transactional consistency.
         </p>
 
@@ -123,11 +125,11 @@ export default function ComparisonSection({ onComplete }) {
                 fontSize: '13px',
                 fontWeight: 600,
                 border: '1px solid',
-                borderColor: selectedAspect === f.id ? '#ED8936' : 'var(--border-color)',
-                background: selectedAspect === f.id ? 'rgba(237, 137, 54, 0.15)' : 'var(--bg-secondary)',
-                color: selectedAspect === f.id ? '#ED8936' : 'var(--text-secondary)',
+                borderColor: selectedAspect === f.id ? '#B54708' : '#E2E8F0',
+                background: selectedAspect === f.id ? '#FFFAEB' : '#FFFFFF',
+                color: selectedAspect === f.id ? '#B54708' : '#475569',
                 cursor: 'pointer',
-                transition: 'all 0.2s',
+                transition: 'all 0.15s ease',
               }}
             >
               {f.label}
@@ -139,11 +141,11 @@ export default function ComparisonSection({ onComplete }) {
         <div style={{ ...cardStyle, overflowX: 'auto', padding: 0 }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
             <thead>
-              <tr style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
-                <th style={{ padding: '16px 20px', fontSize: '14px', color: 'var(--text-muted)', fontWeight: 600 }}>Dimension</th>
-                <th style={{ padding: '16px 20px', fontSize: '14px', color: '#38B2AC', fontWeight: 700 }}>Cache-Aside</th>
-                <th style={{ padding: '16px 20px', fontSize: '14px', color: '#DC382D', fontWeight: 700 }}>Write-Through</th>
-                <th style={{ padding: '16px 20px', fontSize: '14px', color: '#9F7AEA', fontWeight: 700 }}>Write-Behind (Back)</th>
+              <tr style={{ background: '#F8FAFC', borderBottom: '1px solid #E2E8F0' }}>
+                <th style={{ padding: '16px 20px', fontSize: '13px', color: '#475569', fontWeight: 700, textTransform: 'uppercase' }}>Dimension</th>
+                <th style={{ padding: '16px 20px', fontSize: '14px', color: '#079455', fontWeight: 700 }}>Cache-Aside</th>
+                <th style={{ padding: '16px 20px', fontSize: '14px', color: '#D92D20', fontWeight: 700 }}>Write-Through</th>
+                <th style={{ padding: '16px 20px', fontSize: '14px', color: '#444CE7', fontWeight: 700 }}>Write-Behind (Back)</th>
               </tr>
             </thead>
             <tbody>
@@ -151,20 +153,20 @@ export default function ComparisonSection({ onComplete }) {
                 <tr
                   key={idx}
                   style={{
-                    borderBottom: '1px solid var(--border-color)',
-                    background: idx % 2 === 0 ? 'transparent' : 'rgba(255, 255, 255, 0.015)',
+                    borderBottom: '1px solid #E2E8F0',
+                    background: idx % 2 === 0 ? '#FFFFFF' : '#F8FAFC',
                   }}
                 >
-                  <td style={{ padding: '16px 20px', fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>
+                  <td style={{ padding: '16px 20px', fontWeight: 700, fontSize: '13.5px', color: '#0F172A' }}>
                     {row.metric}
                   </td>
-                  <td style={{ padding: '16px 20px', fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                  <td style={{ padding: '16px 20px', fontSize: '13.5px', color: '#334155', lineHeight: 1.5 }}>
                     {row.cacheAside}
                   </td>
-                  <td style={{ padding: '16px 20px', fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                  <td style={{ padding: '16px 20px', fontSize: '13.5px', color: '#334155', lineHeight: 1.5 }}>
                     {row.writeThrough}
                   </td>
-                  <td style={{ padding: '16px 20px', fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                  <td style={{ padding: '16px 20px', fontSize: '13.5px', color: '#334155', lineHeight: 1.5 }}>
                     {row.writeBehind}
                   </td>
                 </tr>
@@ -177,18 +179,18 @@ export default function ComparisonSection({ onComplete }) {
         <div style={{
           padding: '24px',
           borderRadius: '16px',
-          background: 'linear-gradient(135deg, rgba(237, 137, 54, 0.1), rgba(220, 56, 45, 0.1))',
-          border: '1px solid rgba(237, 137, 54, 0.3)',
+          background: '#FFFAEB',
+          border: '1px solid #FEDF89',
           display: 'flex',
           gap: '16px',
           alignItems: 'flex-start',
         }}>
-          <Sparkles size={24} style={{ color: '#ED8936', flexShrink: 0, marginTop: '2px' }} />
+          <Sparkles size={24} style={{ color: '#B54708', flexShrink: 0, marginTop: '2px' }} />
           <div>
-            <h4 style={{ fontSize: '16px', fontWeight: 700, color: '#ED8936', marginBottom: '6px' }}>
+            <h4 style={{ fontSize: '16px', fontWeight: 700, color: '#B54708', marginBottom: '6px' }}>
               Architect's Rule of Thumb
             </h4>
-            <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            <p style={{ fontSize: '14px', color: '#334155', lineHeight: 1.6 }}>
               Default to <strong>Cache-Aside with TTL + event eviction</strong> for 85% of standard web applications (user profiles, catalogs, blog posts). Switch to <strong>Write-Through</strong> only for financial balances, seat reservations, or security tokens where read-after-write inconsistency cannot be tolerated.
             </p>
           </div>
@@ -197,4 +199,3 @@ export default function ComparisonSection({ onComplete }) {
     </div>
   );
 }
-

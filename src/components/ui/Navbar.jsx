@@ -9,19 +9,19 @@ const styles = {
     left: 0,
     right: 0,
     zIndex: 1000,
-    background: 'rgba(9, 10, 15, 0.9)',
-    backdropFilter: 'blur(20px)',
+    background: 'rgba(255, 255, 255, 0.88)',
+    backdropFilter: 'blur(16px)',
     borderBottom: '1px solid var(--border-color)',
-    transition: 'all 0.3s ease',
+    transition: 'all 0.25s ease',
   },
   container: {
     maxWidth: '1440px',
     margin: '0 auto',
-    padding: '0 20px',
+    padding: '0 24px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: '68px',
+    height: '66px',
     gap: '12px',
   },
   brandWrapper: {
@@ -36,12 +36,12 @@ const styles = {
     width: '36px',
     height: '36px',
     borderRadius: '10px',
-    background: 'linear-gradient(135deg, #E11D48, #9F1239)',
+    background: 'linear-gradient(135deg, #D92D20, #B42318)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     color: '#FFF',
-    boxShadow: '0 4px 14px rgba(225, 29, 72, 0.4)',
+    boxShadow: '0 4px 10px rgba(217, 45, 32, 0.25)',
     flexShrink: 0,
   },
   brandTextGroup: {
@@ -59,16 +59,16 @@ const styles = {
     gap: '6px',
   },
   brandSub: {
-    fontSize: '10.5px',
-    fontWeight: 600,
-    color: '#FB7185',
+    fontSize: '11px',
+    fontWeight: 700,
+    color: '#D92D20',
     letterSpacing: '0.04em',
     textTransform: 'uppercase',
   },
   navLinks: {
     display: 'flex',
     alignItems: 'center',
-    gap: '2px',
+    gap: '4px',
     listStyle: 'none',
     margin: '0 auto',
     padding: '0 8px',
@@ -76,11 +76,11 @@ const styles = {
     maxWidth: '850px',
   },
   navLink: {
-    padding: '6px 10px',
-    borderRadius: '6px',
-    fontSize: '12.5px',
+    padding: '6px 12px',
+    borderRadius: '8px',
+    fontSize: '13px',
     fontWeight: 500,
-    color: 'var(--text-secondary)',
+    color: 'var(--text-muted)',
     cursor: 'pointer',
     transition: 'all 0.15s ease',
     whiteSpace: 'nowrap',
@@ -88,8 +88,8 @@ const styles = {
     background: 'none',
   },
   navLinkActive: {
-    color: '#FFF',
-    background: 'rgba(255, 255, 255, 0.08)',
+    color: '#D92D20',
+    background: '#FEF3F2',
     fontWeight: 600,
   },
   actionsGroup: {
@@ -102,12 +102,12 @@ const styles = {
     display: 'inline-flex',
     alignItems: 'center',
     gap: '7px',
-    padding: '7px 14px',
+    padding: '7px 15px',
     borderRadius: '8px',
-    background: 'rgba(225, 29, 72, 0.14)',
-    border: '1px solid rgba(225, 29, 72, 0.4)',
-    color: '#FB7185',
-    fontSize: '12.5px',
+    background: '#FEF3F2',
+    border: '1px solid #FECDCA',
+    color: '#D92D20',
+    fontSize: '13px',
     fontWeight: 600,
     cursor: 'pointer',
     transition: 'all 0.2s ease',
@@ -123,16 +123,16 @@ const styles = {
   },
   mobileMenu: {
     position: 'fixed',
-    top: '68px',
+    top: '66px',
     left: 0,
     right: 0,
-    background: 'rgba(9, 10, 15, 0.98)',
-    backdropFilter: 'blur(20px)',
+    background: '#FFFFFF',
     borderBottom: '1px solid var(--border-color)',
     padding: '16px 20px',
     zIndex: 999,
-    maxHeight: 'calc(100vh - 68px)',
+    maxHeight: 'calc(100vh - 66px)',
     overflowY: 'auto',
+    boxShadow: 'var(--shadow-card)',
   },
   mobileLink: {
     display: 'block',
@@ -169,10 +169,11 @@ export default function Navbar({ sections, activeSection, onOpenVideos }) {
     <>
       <nav style={{
         ...styles.nav,
-        boxShadow: scrolled ? '0 10px 30px rgba(0, 0, 0, 0.6)' : 'none',
+        boxShadow: scrolled ? '0 4px 20px -2px rgba(15, 23, 42, 0.08)' : 'none',
+        background: scrolled ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.88)',
       }}>
         <div style={styles.container}>
-          {/* Brand Name + Logo with "by Kalvium" sub-label */}
+          {/* Brand Name + Logo with "by Kalvium" */}
           <div
             style={styles.brandWrapper}
             onClick={() => scrollTo('hero')}
@@ -182,7 +183,7 @@ export default function Navbar({ sections, activeSection, onOpenVideos }) {
             </div>
             <div style={styles.brandTextGroup}>
               <span style={styles.brandName}>
-                Cache<span style={{ color: '#FB7185' }}>Craft</span>
+                Cache<span style={{ color: '#D92D20' }}>Craft</span>
               </span>
               <span style={styles.brandSub}>
                 by Kalvium
@@ -190,7 +191,7 @@ export default function Navbar({ sections, activeSection, onOpenVideos }) {
             </div>
           </div>
 
-          {/* Desktop Links (Responsive hide under 1150px) */}
+          {/* Desktop Links */}
           <div className="nav-desktop-container" style={{ display: 'flex', alignItems: 'center', flex: 1, justifyContent: 'center' }}>
             <ul style={styles.navLinks} className="hide-on-compact">
               {sections.slice(1).map(({ id, label }) => (
@@ -201,6 +202,12 @@ export default function Navbar({ sections, activeSection, onOpenVideos }) {
                       ...(activeSection === id ? styles.navLinkActive : {}),
                     }}
                     onClick={() => scrollTo(id)}
+                    onMouseEnter={(e) => {
+                      if (activeSection !== id) e.currentTarget.style.background = '#F1F5F9';
+                    }}
+                    onMouseLeave={(e) => {
+                      if (activeSection !== id) e.currentTarget.style.background = 'none';
+                    }}
                   >
                     {label}
                   </button>
@@ -209,18 +216,18 @@ export default function Navbar({ sections, activeSection, onOpenVideos }) {
             </ul>
           </div>
 
-          {/* Action Group: Video Hub & Mobile Toggle */}
+          {/* Action Group */}
           <div style={styles.actionsGroup}>
             <button
               style={styles.videoBtn}
               onClick={onOpenVideos}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(225, 29, 72, 0.25)';
-                e.currentTarget.style.borderColor = '#FB7185';
+                e.currentTarget.style.background = '#FEE4E2';
+                e.currentTarget.style.borderColor = '#FDA29B';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(225, 29, 72, 0.14)';
-                e.currentTarget.style.borderColor = 'rgba(225, 29, 72, 0.4)';
+                e.currentTarget.style.background = '#FEF3F2';
+                e.currentTarget.style.borderColor = '#FECDCA';
               }}
             >
               <Video size={14} />
@@ -248,8 +255,8 @@ export default function Navbar({ sections, activeSection, onOpenVideos }) {
             exit={{ opacity: 0, y: -10 }}
             style={styles.mobileMenu}
           >
-            <div style={{ marginBottom: '16px', padding: '0 8px' }}>
-              <span style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>
+            <div style={{ marginBottom: '12px', padding: '0 8px' }}>
+              <span style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700 }}>
                 Course Modules
               </span>
             </div>
@@ -259,7 +266,7 @@ export default function Navbar({ sections, activeSection, onOpenVideos }) {
                 key={id}
                 style={{
                   ...styles.mobileLink,
-                  ...(activeSection === id ? { color: '#FB7185', background: 'rgba(225,29,72,0.1)' } : {}),
+                  ...(activeSection === id ? { color: '#D92D20', background: '#FEF3F2', fontWeight: 600 } : {}),
                 }}
                 onClick={() => scrollTo(id)}
               >

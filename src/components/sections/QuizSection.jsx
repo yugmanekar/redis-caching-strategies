@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { CheckCircle2, XCircle, Award, RotateCcw, HelpCircle } from 'lucide-react';
+import { CheckCircle2, XCircle, Award, RotateCcw } from 'lucide-react';
 
 const sectionStyle = {
   padding: '80px 24px',
@@ -9,12 +9,12 @@ const sectionStyle = {
 };
 
 const headingStyle = {
-  fontSize: '14px',
+  fontSize: '12px',
   fontWeight: 700,
-  color: '#FF6B6B',
+  color: '#D92D20',
   textTransform: 'uppercase',
-  letterSpacing: '2px',
-  marginBottom: '12px',
+  letterSpacing: '1.5px',
+  marginBottom: '8px',
 };
 
 const titleStyle = {
@@ -22,14 +22,16 @@ const titleStyle = {
   fontWeight: 800,
   lineHeight: 1.2,
   marginBottom: '16px',
+  color: 'var(--text-primary)',
 };
 
 const cardStyle = {
-  background: 'var(--bg-card)',
+  background: '#FFFFFF',
   borderRadius: '16px',
   border: '1px solid var(--border-color)',
   padding: '28px',
-  marginBottom: '24px',
+  marginBottom: '20px',
+  boxShadow: 'var(--shadow-card)',
 };
 
 const questions = [
@@ -128,15 +130,15 @@ export default function QuizSection({ onComplete }) {
   return (
     <div ref={ref} style={sectionStyle}>
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
       >
         <p style={headingStyle}>Chapter 7 • Knowledge Check</p>
         <h2 style={titleStyle}>
-          Validate Your <span style={{ color: '#FF6B6B' }}>Understanding</span>
+          Validate Your <span style={{ color: '#D92D20' }}>Understanding</span>
         </h2>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '16px', maxWidth: '850px', marginBottom: '28px', lineHeight: 1.7 }}>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '15.5px', maxWidth: '850px', marginBottom: '28px', lineHeight: 1.7 }}>
           Assess your retention of Redis caching architecture, command mechanics, and performance trade-offs.
         </p>
 
@@ -148,27 +150,27 @@ export default function QuizSection({ onComplete }) {
                 <span style={{
                   padding: '4px 10px',
                   borderRadius: '6px',
-                  background: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-color)',
-                  color: 'var(--text-muted)',
-                  fontSize: '13px',
+                  background: '#F1F5F9',
+                  border: '1px solid #E2E8F0',
+                  color: '#475569',
+                  fontSize: '12px',
                   fontWeight: 700,
                   fontFamily: 'var(--font-mono)',
                 }}>
                   0{qIndex + 1}
                 </span>
-                <h3 style={{ fontSize: '17px', fontWeight: 700, lineHeight: 1.5 }}>{q.question}</h3>
+                <h3 style={{ fontSize: '16px', fontWeight: 700, lineHeight: 1.5, color: '#0F172A' }}>{q.question}</h3>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 {q.options.map((opt, optIdx) => {
                   const isSelected = selectedAnswers[q.id] === optIdx;
                   let optStyle = {
-                    padding: '14px 18px',
+                    padding: '13px 16px',
                     borderRadius: '10px',
-                    border: '1px solid var(--border-color)',
-                    background: 'var(--bg-secondary)',
-                    color: 'var(--text-secondary)',
+                    border: '1px solid #E2E8F0',
+                    background: '#F8FAFC',
+                    color: '#334155',
                     fontSize: '14px',
                     cursor: submitted ? 'default' : 'pointer',
                     display: 'flex',
@@ -178,20 +180,22 @@ export default function QuizSection({ onComplete }) {
                   };
 
                   if (isSelected) {
-                    optStyle.borderColor = '#38B2AC';
-                    optStyle.background = 'rgba(56, 178, 172, 0.1)';
-                    optStyle.color = 'var(--text-primary)';
+                    optStyle.borderColor = '#444CE7';
+                    optStyle.background = '#EEF4FF';
+                    optStyle.color = '#3538CD';
+                    optStyle.fontWeight = 500;
                   }
 
                   if (submitted) {
                     if (optIdx === q.answer) {
-                      optStyle.borderColor = '#48BB78';
-                      optStyle.background = 'rgba(72, 187, 120, 0.15)';
-                      optStyle.color = '#48BB78';
+                      optStyle.borderColor = '#A6F4C5';
+                      optStyle.background = '#ECFDF3';
+                      optStyle.color = '#027A48';
+                      optStyle.fontWeight = 600;
                     } else if (isSelected && optIdx !== q.answer) {
-                      optStyle.borderColor = '#FF6B6B';
-                      optStyle.background = 'rgba(220, 56, 45, 0.15)';
-                      optStyle.color = '#FF6B6B';
+                      optStyle.borderColor = '#FECDCA';
+                      optStyle.background = '#FEF3F2';
+                      optStyle.color = '#B42318';
                     }
                   }
 
@@ -202,8 +206,8 @@ export default function QuizSection({ onComplete }) {
                       onClick={() => handleSelect(q.id, optIdx)}
                     >
                       <span>{opt}</span>
-                      {submitted && optIdx === q.answer && <CheckCircle2 size={18} color="#48BB78" />}
-                      {submitted && isSelected && optIdx !== q.answer && <XCircle size={18} color="#FF6B6B" />}
+                      {submitted && optIdx === q.answer && <CheckCircle2 size={18} color="#079455" />}
+                      {submitted && isSelected && optIdx !== q.answer && <XCircle size={18} color="#D92D20" />}
                     </div>
                   );
                 })}
@@ -214,10 +218,10 @@ export default function QuizSection({ onComplete }) {
                   marginTop: '16px',
                   padding: '12px 16px',
                   borderRadius: '8px',
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid var(--border-color)',
+                  background: '#F8FAFC',
+                  border: '1px solid #E2E8F0',
                   fontSize: '13px',
-                  color: 'var(--text-muted)',
+                  color: '#475569',
                 }}>
                   💡 <strong>Explanation:</strong> {q.explanation}
                 </div>
@@ -235,35 +239,36 @@ export default function QuizSection({ onComplete }) {
               style={{
                 padding: '14px 32px',
                 borderRadius: '10px',
-                background: Object.keys(selectedAnswers).length === questions.length ? 'linear-gradient(135deg, #DC382D, #c0392b)' : 'var(--bg-card)',
-                color: Object.keys(selectedAnswers).length === questions.length ? 'white' : 'var(--text-muted)',
-                border: '1px solid var(--border-color)',
+                background: Object.keys(selectedAnswers).length === questions.length ? 'linear-gradient(180deg, #D92D20 0%, #B42318 100%)' : '#E2E8F0',
+                color: Object.keys(selectedAnswers).length === questions.length ? 'white' : '#94A3B8',
+                border: 'none',
                 fontSize: '15px',
                 fontWeight: 700,
                 cursor: Object.keys(selectedAnswers).length === questions.length ? 'pointer' : 'not-allowed',
                 transition: 'all 0.2s',
+                boxShadow: Object.keys(selectedAnswers).length === questions.length ? '0 4px 12px rgba(217, 45, 32, 0.25)' : 'none',
               }}
             >
               Submit Quiz ({Object.keys(selectedAnswers).length}/{questions.length} Answered)
             </button>
           ) : (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px', width: '100%' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', width: '100%', flexWrap: 'wrap' }}>
               <div style={{
                 flex: 1,
-                padding: '16px 24px',
+                padding: '16px 20px',
                 borderRadius: '12px',
-                background: score >= 4 ? 'rgba(72, 187, 120, 0.15)' : 'rgba(237, 137, 54, 0.15)',
-                border: `1px solid ${score >= 4 ? '#48BB78' : '#ED8936'}`,
+                background: score >= 4 ? '#ECFDF3' : '#FFFAEB',
+                border: `1px solid ${score >= 4 ? '#A6F4C5' : '#FEDF89'}`,
                 display: 'flex',
                 alignItems: 'center',
                 gap: '12px',
               }}>
-                <Award size={28} color={score >= 4 ? '#48BB78' : '#ED8936'} />
+                <Award size={28} color={score >= 4 ? '#079455' : '#B54708'} />
                 <div>
-                  <h4 style={{ fontSize: '16px', fontWeight: 700, color: score >= 4 ? '#48BB78' : '#ED8936' }}>
+                  <h4 style={{ fontSize: '15.5px', fontWeight: 700, color: score >= 4 ? '#027A48' : '#B54708' }}>
                     Score: {score} of {questions.length} ({Math.round((score / questions.length) * 100)}%)
                   </h4>
-                  <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
+                  <p style={{ fontSize: '13px', color: '#475569' }}>
                     {score >= 4 ? 'Outstanding grasp of Redis caching strategies!' : 'Good effort! Review the chapters above to solidify edge cases.'}
                   </p>
                 </div>
@@ -272,20 +277,21 @@ export default function QuizSection({ onComplete }) {
               <button
                 onClick={handleReset}
                 style={{
-                  padding: '14px 24px',
+                  padding: '14px 22px',
                   borderRadius: '10px',
-                  background: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-color)',
-                  color: 'var(--text-primary)',
+                  background: '#FFFFFF',
+                  border: '1px solid #CBD5E1',
+                  color: '#0F172A',
                   fontSize: '14px',
                   fontWeight: 600,
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
+                  boxShadow: 'var(--shadow-subtle)',
                 }}
               >
-                <RotateCcw size={16} /> Retry
+                <RotateCcw size={15} /> Retry
               </button>
             </div>
           )}
@@ -294,4 +300,3 @@ export default function QuizSection({ onComplete }) {
     </div>
   );
 }
-

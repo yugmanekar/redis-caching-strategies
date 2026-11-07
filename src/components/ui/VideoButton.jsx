@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Play, Sparkles } from 'lucide-react';
+import { Play } from 'lucide-react';
 
 export default function VideoButton({ onOpen, label = 'Watch Video Lesson', videoId = 'intro' }) {
   return (
@@ -9,39 +9,38 @@ export default function VideoButton({ onOpen, label = 'Watch Video Lesson', vide
         display: 'inline-flex',
         alignItems: 'center',
         gap: '8px',
-        padding: '10px 18px',
-        borderRadius: '10px',
-        background: 'rgba(220, 56, 45, 0.12)',
-        border: '1px solid rgba(220, 56, 45, 0.35)',
-        color: '#FF6B6B',
-        fontSize: '13.5px',
+        padding: '8px 16px',
+        borderRadius: '8px',
+        background: '#FEF3F2',
+        border: '1px solid #FECDCA',
+        color: '#D92D20',
+        fontSize: '13px',
         fontWeight: 600,
         cursor: 'pointer',
-        transition: 'all 0.2s',
+        transition: 'all 0.15s ease',
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.background = 'rgba(220, 56, 45, 0.22)';
-        e.currentTarget.style.borderColor = '#DC382D';
+        e.currentTarget.style.background = '#FEE4E2';
+        e.currentTarget.style.borderColor = '#FDA29B';
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.background = 'rgba(220, 56, 45, 0.12)';
-        e.currentTarget.style.borderColor = 'rgba(220, 56, 45, 0.35)';
+        e.currentTarget.style.background = '#FEF3F2';
+        e.currentTarget.style.borderColor = '#FECDCA';
       }}
     >
       <div style={{
-        width: '22px',
-        height: '22px',
+        width: '20px',
+        height: '20px',
         borderRadius: '50%',
-        background: '#DC382D',
+        background: '#D92D20',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         color: 'white',
       }}>
-        <Play size={10} fill="white" style={{ marginLeft: '1px' }} />
+        <Play size={9} fill="white" style={{ marginLeft: '1px' }} />
       </div>
       <span>{label}</span>
     </button>
   );
 }
-

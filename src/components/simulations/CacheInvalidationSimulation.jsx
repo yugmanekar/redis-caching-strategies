@@ -6,22 +6,22 @@ import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 // ─── Color Palette ────────────────────────────────────────────────────────────
 const COLORS = {
-  redis: '#DC382D',
-  redisLight: '#ff6b5e',
-  database: '#336791',
-  databaseLight: '#4a8bb5',
-  app: '#38B2AC',
-  appLight: '#4fd1c5',
-  bg: '#1a1a2e',
-  bgCard: '#16213e',
-  bgCardLight: '#1c2a4a',
-  bgInput: '#0f3460',
-  text: '#e2e8f0',
-  textMuted: '#94a3b8',
-  success: '#48bb78',
-  warning: '#ecc94b',
-  danger: '#fc8181',
-  border: '#2d3a5e',
+  redis: '#D92D20',
+  redisLight: '#F04438',
+  database: '#2E5B82',
+  databaseLight: '#4A7CA5',
+  app: '#079455',
+  appLight: '#12B76A',
+  bg: '#F8FAFC',
+  bgCard: '#FFFFFF',
+  bgCardLight: '#F1F5F9',
+  bgInput: '#FFFFFF',
+  text: '#0F172A',
+  textMuted: '#64748B',
+  success: '#079455',
+  warning: '#B54708',
+  danger: '#D92D20',
+  border: '#E2E8F0',
 };
 
 // ─── Shared Styles ────────────────────────────────────────────────────────────

@@ -4,19 +4,19 @@ import { Database, Server, HardDrive, Edit, Search, ArrowRight, Clock, Trash2, B
 
 /* ─────────────────────── colour palette ─────────────────────── */
 const COLORS = {
-  bg: '#1a1a2e',
-  surface: '#16213e',
-  surfaceLight: '#0f3460',
-  border: '#1a3a6a',
-  text: '#e0e0e0',
-  textDim: '#8892a8',
-  redis: '#DC382D',
-  db: '#336791',
-  app: '#38B2AC',
-  hit: '#48bb78',
-  miss: '#f56565',
-  accent: '#e2b93d',
-  white: '#ffffff',
+  bg: '#F8FAFC',
+  surface: '#FFFFFF',
+  surfaceLight: '#F1F5F9',
+  border: '#E2E8F0',
+  text: '#0F172A',
+  textDim: '#64748B',
+  redis: '#D92D20',
+  db: '#2E5B82',
+  app: '#079455',
+  hit: '#079455',
+  miss: '#D92D20',
+  accent: '#B54708',
+  white: '#0F172A',
 };
 
 /* ─────────────────── reusable inline styles ─────────────────── */

@@ -12,12 +12,12 @@ const sectionStyle = {
 };
 
 const headingStyle = {
-  fontSize: '14px',
+  fontSize: '12px',
   fontWeight: 700,
-  color: '#38B2AC',
+  color: '#079455',
   textTransform: 'uppercase',
-  letterSpacing: '2px',
-  marginBottom: '12px',
+  letterSpacing: '1.5px',
+  marginBottom: '8px',
 };
 
 const titleStyle = {
@@ -25,14 +25,16 @@ const titleStyle = {
   fontWeight: 800,
   lineHeight: 1.2,
   marginBottom: '16px',
+  color: 'var(--text-primary)',
 };
 
 const cardStyle = {
-  background: 'var(--bg-card)',
+  background: '#FFFFFF',
   borderRadius: '16px',
   border: '1px solid var(--border-color)',
   padding: '28px',
   marginBottom: '24px',
+  boxShadow: 'var(--shadow-card)',
 };
 
 export default function CacheAsideSection({ onComplete, onOpenVideo }) {
@@ -46,7 +48,7 @@ export default function CacheAsideSection({ onComplete, onOpenVideo }) {
   return (
     <div ref={ref} style={sectionStyle}>
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
       >
@@ -57,10 +59,10 @@ export default function CacheAsideSection({ onComplete, onOpenVideo }) {
 
         <h2 style={titleStyle}>
           Cache-Aside Pattern{' '}
-          <span style={{ color: '#38B2AC' }}>(Lazy Loading)</span>
+          <span style={{ color: '#079455' }}>(Lazy Loading)</span>
         </h2>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '16px', maxWidth: '850px', marginBottom: '28px', lineHeight: 1.7 }}>
-          Cache-Aside is the most ubiquitous caching strategy in modern web architectures. The application is completely responsible for coordinating between the cache and the primary datastore. Data is only loaded into the cache when explicitly requested.
+        <p style={{ color: 'var(--text-secondary)', fontSize: '15.5px', maxWidth: '850px', marginBottom: '28px', lineHeight: 1.7 }}>
+          Cache-Aside is the most ubiquitous caching strategy in modern web architectures. The application coordinates between the cache and the primary datastore, loading data into the cache only when explicitly requested.
         </p>
 
         {/* 3 Step Workflow */}
@@ -70,29 +72,32 @@ export default function CacheAsideSection({ onComplete, onOpenVideo }) {
               step: 'Step 1',
               title: 'Check Cache',
               desc: 'App requests key from Redis. If data exists (Cache HIT), it immediately returns to client.',
-              accent: '#38B2AC',
+              accent: '#079455',
+              bg: '#ECFDF3',
             },
             {
               step: 'Step 2',
               title: 'Query Database on Miss',
               desc: 'If key does not exist (Cache MISS), application falls back to querying SQL/NoSQL database.',
-              accent: '#ECC94B',
+              accent: '#B54708',
+              bg: '#FFFAEB',
             },
             {
               step: 'Step 3',
               title: 'Populate & Return',
               desc: 'Application writes queried record into Redis with an optional TTL, then returns data to client.',
-              accent: '#48BB78',
+              accent: '#444CE7',
+              bg: '#EEF4FF',
             },
           ].map((item, idx) => (
             <div key={idx} style={{
               ...cardStyle,
               marginBottom: 0,
               borderTop: `4px solid ${item.accent}`,
-              background: 'var(--bg-secondary)',
+              background: '#FFFFFF',
             }}>
-              <span style={{ fontSize: '12px', fontWeight: 700, color: item.accent, textTransform: 'uppercase' }}>{item.step}</span>
-              <h4 style={{ fontSize: '18px', fontWeight: 700, margin: '8px 0 6px' }}>{item.title}</h4>
+              <span style={{ fontSize: '11px', fontWeight: 700, color: item.accent, textTransform: 'uppercase', letterSpacing: '0.5px' }}>{item.step}</span>
+              <h4 style={{ fontSize: '17px', fontWeight: 700, margin: '8px 0 6px', color: '#0F172A' }}>{item.title}</h4>
               <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{item.desc}</p>
             </div>
           ))}
@@ -101,11 +106,11 @@ export default function CacheAsideSection({ onComplete, onOpenVideo }) {
         {/* Live Simulation Card */}
         <div style={cardStyle}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-            <div style={{ padding: '8px', borderRadius: '8px', background: 'rgba(56, 178, 172, 0.15)', color: '#38B2AC' }}>
+            <div style={{ padding: '8px', borderRadius: '8px', background: '#ECFDF3', color: '#079455' }}>
               <Layers size={20} />
             </div>
             <div>
-              <h3 style={{ fontSize: '19px', fontWeight: 700 }}>Interactive Cache-Aside Laboratory</h3>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#0F172A' }}>Interactive Cache-Aside Laboratory</h3>
               <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
                 Test keys like <code>user:1</code>, observe cache hit vs miss latency, and inspect real-time state changes.
               </p>
@@ -117,8 +122,8 @@ export default function CacheAsideSection({ onComplete, onOpenVideo }) {
 
         {/* Production Node.js Code Example */}
         <div style={cardStyle}>
-          <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Code size={18} style={{ color: '#38B2AC' }} /> Production Implementation (Node.js & ioredis)
+          <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px', color: '#0F172A' }}>
+            <Code size={18} style={{ color: '#079455' }} /> Production Implementation (Node.js & ioredis)
           </h3>
           <p style={{ color: 'var(--text-secondary)', fontSize: '14px', marginBottom: '12px' }}>
             Notice how errors in Redis gracefully fall through to querying the database rather than breaking user requests:
@@ -171,8 +176,8 @@ export async function getUserProfile(userId) {
 
         {/* Pros & Cons Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
-          <div style={{ ...cardStyle, borderLeft: '4px solid #48BB78' }}>
-            <h4 style={{ fontSize: '16px', fontWeight: 700, color: '#48BB78', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+          <div style={{ ...cardStyle, borderLeft: '4px solid #079455' }}>
+            <h4 style={{ fontSize: '16px', fontWeight: 700, color: '#079455', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
               <CheckCircle2 size={18} /> Advantages
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13.5px', color: 'var(--text-secondary)' }}>
@@ -182,8 +187,8 @@ export async function getUserProfile(userId) {
             </ul>
           </div>
 
-          <div style={{ ...cardStyle, borderLeft: '4px solid #FF6B6B' }}>
-            <h4 style={{ fontSize: '16px', fontWeight: 700, color: '#FF6B6B', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+          <div style={{ ...cardStyle, borderLeft: '4px solid #D92D20' }}>
+            <h4 style={{ fontSize: '16px', fontWeight: 700, color: '#D92D20', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
               <XCircle size={18} /> Trade-offs & Risks
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13.5px', color: 'var(--text-secondary)' }}>

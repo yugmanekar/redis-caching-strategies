@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Video, ExternalLink, Sparkles, BookOpen, Clock } from 'lucide-react';
+import { Play, Video, Sparkles, Clock } from 'lucide-react';
 
 const videoPlaylists = [
   {
@@ -8,7 +8,7 @@ const videoPlaylists = [
     title: 'Why Redis & In-Memory Caching Matters',
     duration: '3:45',
     tag: 'Fundamentals',
-    youtubeId: 'jgpVdJB2sKQ', // High quality visual Redis explanation
+    youtubeId: 'jgpVdJB2sKQ',
     description: 'A visual walkthrough showing how in-memory key-value databases solve latency bottlenecks in modern web infrastructure.',
     keyTakeaways: [
       'Disk I/O vs RAM latency breakdown',
@@ -75,8 +75,8 @@ export default function VideoHubModal({ isOpen, onClose, initialVideoId = 'intro
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'rgba(0, 0, 0, 0.85)',
-          backdropFilter: 'blur(12px)',
+          background: 'rgba(15, 23, 42, 0.65)',
+          backdropFilter: 'blur(8px)',
           zIndex: 2000,
           display: 'flex',
           alignItems: 'center',
@@ -86,13 +86,13 @@ export default function VideoHubModal({ isOpen, onClose, initialVideoId = 'intro
         onClick={onClose}
       >
         <motion.div
-          initial={{ scale: 0.95, opacity: 0, y: 20 }}
+          initial={{ scale: 0.96, opacity: 0, y: 15 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.95, opacity: 0, y: 20 }}
+          exit={{ scale: 0.96, opacity: 0, y: 15 }}
           onClick={(e) => e.stopPropagation()}
           style={{
-            background: 'var(--bg-secondary)',
-            border: '1px solid var(--border-color)',
+            background: '#FFFFFF',
+            border: '1px solid #E2E8F0',
             borderRadius: '20px',
             width: '100%',
             maxWidth: '1050px',
@@ -100,30 +100,30 @@ export default function VideoHubModal({ isOpen, onClose, initialVideoId = 'intro
             overflow: 'hidden',
             display: 'flex',
             flexDirection: 'column',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.6)',
+            boxShadow: '0 20px 40px -10px rgba(15, 23, 42, 0.25)',
           }}
         >
           {/* Header */}
           <div style={{
-            padding: '20px 28px',
-            borderBottom: '1px solid var(--border-color)',
+            padding: '18px 24px',
+            borderBottom: '1px solid #E2E8F0',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            background: 'rgba(15, 15, 26, 0.8)',
+            background: '#F8FAFC',
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <div style={{
                 padding: '8px',
                 borderRadius: '8px',
-                background: 'rgba(220, 56, 45, 0.15)',
-                color: '#DC382D',
+                background: '#FEF3F2',
+                color: '#D92D20',
               }}>
-                <Video size={22} />
+                <Video size={20} />
               </div>
               <div>
-                <h3 style={{ fontSize: '18px', fontWeight: 800 }}>Video Concept Classroom</h3>
-                <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+                <h3 style={{ fontSize: '17px', fontWeight: 700, color: '#0F172A' }}>Video Concept Classroom</h3>
+                <p style={{ fontSize: '12px', color: '#64748B' }}>
                   Curated video breakdowns explaining caching architecture step-by-step
                 </p>
               </div>
@@ -132,9 +132,9 @@ export default function VideoHubModal({ isOpen, onClose, initialVideoId = 'intro
             <button
               onClick={onClose}
               style={{
-                background: 'rgba(255, 255, 255, 0.08)',
-                border: '1px solid var(--border-color)',
-                color: 'var(--text-secondary)',
+                background: '#FFFFFF',
+                border: '1px solid #CBD5E1',
+                color: '#475569',
                 borderRadius: '8px',
                 padding: '6px 14px',
                 fontSize: '13px',
@@ -154,15 +154,15 @@ export default function VideoHubModal({ isOpen, onClose, initialVideoId = 'intro
             flex: 1,
           }}>
             {/* Left: Video Player */}
-            <div style={{ padding: '24px', background: '#0e0e18' }}>
+            <div style={{ padding: '24px', background: '#F8FAFC' }}>
               <div style={{
                 position: 'relative',
-                paddingBottom: '56.25%', // 16:9 aspect ratio
+                paddingBottom: '56.25%',
                 height: 0,
                 borderRadius: '12px',
                 overflow: 'hidden',
                 background: '#000',
-                boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
+                boxShadow: '0 8px 20px rgba(0,0,0,0.15)',
                 marginBottom: '20px',
               }}>
                 <iframe
@@ -184,24 +184,25 @@ export default function VideoHubModal({ isOpen, onClose, initialVideoId = 'intro
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
                   <span style={{
-                    padding: '4px 10px',
+                    padding: '3px 9px',
                     borderRadius: '50px',
                     fontSize: '11px',
                     fontWeight: 700,
-                    background: 'rgba(220, 56, 45, 0.15)',
-                    color: '#FF6B6B',
+                    background: '#FEF3F2',
+                    color: '#D92D20',
+                    border: '1px solid #FECDCA',
                   }}>
                     {activeVideo.tag}
                   </span>
-                  <span style={{ fontSize: '13px', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <span style={{ fontSize: '12px', color: '#64748B', display: 'flex', alignItems: 'center', gap: '4px' }}>
                     <Clock size={13} /> {activeVideo.duration}
                   </span>
                 </div>
 
-                <h4 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '8px' }}>
+                <h4 style={{ fontSize: '19px', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>
                   {activeVideo.title}
                 </h4>
-                <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '16px' }}>
+                <p style={{ fontSize: '14px', color: '#334155', lineHeight: 1.6, marginBottom: '16px' }}>
                   {activeVideo.description}
                 </p>
 
@@ -209,13 +210,13 @@ export default function VideoHubModal({ isOpen, onClose, initialVideoId = 'intro
                 <div style={{
                   padding: '16px',
                   borderRadius: '12px',
-                  background: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-color)',
+                  background: '#FFFFFF',
+                  border: '1px solid #E2E8F0',
                 }}>
-                  <h5 style={{ fontSize: '13px', fontWeight: 700, color: '#38B2AC', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Sparkles size={14} /> Key Takeaways Covered in this Lesson:
+                  <h5 style={{ fontSize: '13px', fontWeight: 700, color: '#079455', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <Sparkles size={14} /> Key Takeaways Covered:
                   </h5>
-                  <ul style={{ paddingLeft: '20px', fontSize: '13px', color: 'var(--text-secondary)', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <ul style={{ paddingLeft: '20px', fontSize: '13px', color: '#475569', display: 'flex', flexDirection: 'column', gap: '4px' }}>
                     {activeVideo.keyTakeaways.map((item, i) => (
                       <li key={i}>{item}</li>
                     ))}
@@ -226,14 +227,14 @@ export default function VideoHubModal({ isOpen, onClose, initialVideoId = 'intro
 
             {/* Right: Playlist Sidebar */}
             <div style={{
-              background: 'var(--bg-card)',
-              borderLeft: '1px solid var(--border-color)',
+              background: '#FFFFFF',
+              borderLeft: '1px solid #E2E8F0',
               padding: '20px',
               display: 'flex',
               flexDirection: 'column',
-              gap: '12px',
+              gap: '10px',
             }}>
-              <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>
+              <span style={{ fontSize: '11.5px', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Course Video Lessons
               </span>
 
@@ -244,35 +245,35 @@ export default function VideoHubModal({ isOpen, onClose, initialVideoId = 'intro
                     key={video.id}
                     onClick={() => setActiveVideoId(video.id)}
                     style={{
-                      padding: '14px',
+                      padding: '13px',
                       borderRadius: '10px',
-                      background: isSelected ? 'rgba(220, 56, 45, 0.15)' : 'var(--bg-secondary)',
-                      border: isSelected ? '1px solid #DC382D' : '1px solid var(--border-color)',
+                      background: isSelected ? '#FEF3F2' : '#F8FAFC',
+                      border: isSelected ? '1px solid #FECDCA' : '1px solid #E2E8F0',
                       cursor: 'pointer',
-                      transition: 'all 0.2s',
+                      transition: 'all 0.15s ease',
                     }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
-                      <span style={{ fontSize: '11px', fontWeight: 700, color: isSelected ? '#FF6B6B' : 'var(--text-muted)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: isSelected ? '#D92D20' : '#64748B' }}>
                         {video.tag}
                       </span>
-                      <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
+                      <span style={{ fontSize: '11px', color: '#94A3B8' }}>
                         {video.duration}
                       </span>
                     </div>
 
                     <h5 style={{
-                      fontSize: '13.5px',
+                      fontSize: '13px',
                       fontWeight: 700,
-                      color: isSelected ? 'var(--text-primary)' : 'var(--text-secondary)',
+                      color: isSelected ? '#B42318' : '#0F172A',
                       lineHeight: 1.4,
                       marginBottom: '6px',
                     }}>
                       {video.title}
                     </h5>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', color: isSelected ? '#DC382D' : 'var(--text-muted)' }}>
-                      <Play size={12} fill={isSelected ? '#DC382D' : 'currentColor'} />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11.5px', color: isSelected ? '#D92D20' : '#64748B' }}>
+                      <Play size={11} fill={isSelected ? '#D92D20' : 'currentColor'} />
                       <span>{isSelected ? 'Now Playing' : 'Watch Lesson'}</span>
                     </div>
                   </div>
@@ -285,4 +286,3 @@ export default function VideoHubModal({ isOpen, onClose, initialVideoId = 'intro
     </AnimatePresence>
   );
 }
-

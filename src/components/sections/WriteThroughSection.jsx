@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { RefreshCw, CheckCircle2, XCircle, Code, ShieldAlert, Cpu } from 'lucide-react';
+import { RefreshCw, CheckCircle2, XCircle, Code, Cpu } from 'lucide-react';
 import WriteThroughSimulation from '../simulations/WriteThroughSimulation';
 import CodeBlock from '../ui/CodeBlock';
 import VideoButton from '../ui/VideoButton';
@@ -12,12 +12,12 @@ const sectionStyle = {
 };
 
 const headingStyle = {
-  fontSize: '14px',
+  fontSize: '12px',
   fontWeight: 700,
-  color: '#DC382D',
+  color: '#D92D20',
   textTransform: 'uppercase',
-  letterSpacing: '2px',
-  marginBottom: '12px',
+  letterSpacing: '1.5px',
+  marginBottom: '8px',
 };
 
 const titleStyle = {
@@ -25,14 +25,16 @@ const titleStyle = {
   fontWeight: 800,
   lineHeight: 1.2,
   marginBottom: '16px',
+  color: 'var(--text-primary)',
 };
 
 const cardStyle = {
-  background: 'var(--bg-card)',
+  background: '#FFFFFF',
   borderRadius: '16px',
   border: '1px solid var(--border-color)',
   padding: '28px',
   marginBottom: '24px',
+  boxShadow: 'var(--shadow-card)',
 };
 
 export default function WriteThroughSection({ onComplete, onOpenVideo }) {
@@ -46,7 +48,7 @@ export default function WriteThroughSection({ onComplete, onOpenVideo }) {
   return (
     <div ref={ref} style={sectionStyle}>
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
       >
@@ -57,22 +59,22 @@ export default function WriteThroughSection({ onComplete, onOpenVideo }) {
 
         <h2 style={titleStyle}>
           Write-Through Pattern{' '}
-          <span style={{ color: '#DC382D' }}>(Immediate Consistency)</span>
+          <span style={{ color: '#D92D20' }}>(Immediate Consistency)</span>
         </h2>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '16px', maxWidth: '850px', marginBottom: '28px', lineHeight: 1.7 }}>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '15.5px', maxWidth: '850px', marginBottom: '28px', lineHeight: 1.7 }}>
           In the Write-Through strategy, the cache acts as the primary data interface for writes. Whenever an update occurs, data is synchronously written to the cache and the permanent database together. The write transaction completes only when both systems acknowledge success.
         </p>
 
         {/* Conceptual Dual Path */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '28px' }}>
-          <div style={{ ...cardStyle, marginBottom: 0, background: 'var(--bg-secondary)', borderTop: '4px solid #DC382D' }}>
-            <h4 style={{ fontSize: '17px', fontWeight: 700, marginBottom: '8px', color: '#FF6B6B' }}>Write Path (Dual Persistence)</h4>
+          <div style={{ ...cardStyle, marginBottom: 0, borderTop: '4px solid #D92D20' }}>
+            <h4 style={{ fontSize: '17px', fontWeight: 700, marginBottom: '8px', color: '#D92D20' }}>Write Path (Dual Persistence)</h4>
             <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
               Client requests write ➔ Cache is updated immediately ➔ DB is updated within the same transaction ➔ Response returned only after both succeed.
             </p>
           </div>
-          <div style={{ ...cardStyle, marginBottom: 0, background: 'var(--bg-secondary)', borderTop: '4px solid #48BB78' }}>
-            <h4 style={{ fontSize: '17px', fontWeight: 700, marginBottom: '8px', color: '#48BB78' }}>Read Path (Guaranteed Hit)</h4>
+          <div style={{ ...cardStyle, marginBottom: 0, borderTop: '4px solid #079455' }}>
+            <h4 style={{ fontSize: '17px', fontWeight: 700, marginBottom: '8px', color: '#079455' }}>Read Path (Guaranteed Hit)</h4>
             <p style={{ fontSize: '13.5px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
               Because data was cached during the write stage, subsequent read operations enjoy virtually 100% cache hit rates with ultra-low sub-millisecond latencies.
             </p>
@@ -82,11 +84,11 @@ export default function WriteThroughSection({ onComplete, onOpenVideo }) {
         {/* Live Simulation Card */}
         <div style={cardStyle}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-            <div style={{ padding: '8px', borderRadius: '8px', background: 'rgba(220, 56, 45, 0.15)', color: '#DC382D' }}>
+            <div style={{ padding: '8px', borderRadius: '8px', background: '#FEF3F2', color: '#D92D20' }}>
               <RefreshCw size={20} />
             </div>
             <div>
-              <h3 style={{ fontSize: '19px', fontWeight: 700 }}>Interactive Write-Through Sandbox</h3>
+              <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#0F172A' }}>Interactive Write-Through Sandbox</h3>
               <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
                 Commit writes, inspect synchronous dual-writes to Redis & DB, observe latency metrics, and test instant reads.
               </p>
@@ -98,8 +100,8 @@ export default function WriteThroughSection({ onComplete, onOpenVideo }) {
 
         {/* Code Block for Write-Through */}
         <div style={cardStyle}>
-          <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Code size={18} style={{ color: '#DC382D' }} /> Transactional Write-Through Implementation
+          <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px', color: '#0F172A' }}>
+            <Code size={18} style={{ color: '#D92D20' }} /> Transactional Write-Through Implementation
           </h3>
           <p style={{ color: 'var(--text-secondary)', fontSize: '14px', marginBottom: '12px' }}>
             A typical implementation wraps the database write and cache write together so neither becomes desynchronized:
@@ -157,19 +159,19 @@ export async function updateProductWriteThrough(productId, payload) {
         </div>
 
         {/* Write-Behind Note */}
-        <div style={{ ...cardStyle, background: 'rgba(237, 137, 54, 0.1)', borderColor: 'rgba(237, 137, 54, 0.3)' }}>
-          <h4 style={{ fontSize: '16px', fontWeight: 700, color: '#ED8936', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+        <div style={{ ...cardStyle, background: '#FFFAEB', borderColor: '#FEDF89' }}>
+          <h4 style={{ fontSize: '16px', fontWeight: 700, color: '#B54708', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
             <Cpu size={18} /> Deep Dive: Write-Through vs Write-Behind (Write-Back)
           </h4>
-          <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
+          <p style={{ fontSize: '14px', color: '#475569', lineHeight: 1.7 }}>
             In <strong>Write-Through</strong>, the database write happens synchronously before returning an acknowledgement. In <strong>Write-Behind (Write-Back)</strong>, the app only writes to Redis immediately and queues an asynchronous message (via Redis Streams, Kafka, or RabbitMQ) to persist to the database later. Write-behind yields phenomenal write speeds, but carries a small risk of data loss if the cache crashes before the queue flushes.
           </p>
         </div>
 
         {/* Pros & Cons */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
-          <div style={{ ...cardStyle, borderLeft: '4px solid #48BB78' }}>
-            <h4 style={{ fontSize: '16px', fontWeight: 700, color: '#48BB78', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+          <div style={{ ...cardStyle, borderLeft: '4px solid #079455' }}>
+            <h4 style={{ fontSize: '16px', fontWeight: 700, color: '#079455', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
               <CheckCircle2 size={18} /> Advantages
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13.5px', color: 'var(--text-secondary)' }}>
@@ -179,8 +181,8 @@ export async function updateProductWriteThrough(productId, payload) {
             </ul>
           </div>
 
-          <div style={{ ...cardStyle, borderLeft: '4px solid #FF6B6B' }}>
-            <h4 style={{ fontSize: '16px', fontWeight: 700, color: '#FF6B6B', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+          <div style={{ ...cardStyle, borderLeft: '4px solid #D92D20' }}>
+            <h4 style={{ fontSize: '16px', fontWeight: 700, color: '#D92D20', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
               <XCircle size={18} /> Trade-offs & Risks
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '13.5px', color: 'var(--text-secondary)' }}>
